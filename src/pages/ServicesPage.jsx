@@ -1,51 +1,92 @@
+import { motion } from 'motion/react'
+import { cardHover, revealContainer, revealItem } from '../animations'
+
 const services = [
   {
-    title: 'Clarifier ton positionnement',
-    text: 'Comprendre ce que tu proposes, a qui tu t adresses et comment le rendre lisible.',
+    title: 'Gestion administrative',
+    text: 'Suivi des dossiers, organisation des documents, relances, preparation et mise au propre des informations importantes.',
   },
   {
-    title: 'Structurer ton offre',
-    text: 'Transformer tes idees en parcours, services, prix et messages faciles a presenter.',
+    title: 'Assistanat business',
+    text: 'Aide a la priorisation, coordination des actions, suivi des demandes et soutien dans les decisions du quotidien.',
   },
   {
-    title: 'Construire ton image',
-    text: 'Aligner ton Instagram, tes visuels, ton ton et ton experience client.',
+    title: 'Organisation operationnelle',
+    text: 'Mise en place de process simples, tableaux de suivi, routines de travail et outils pour gagner en fluidite.',
   },
   {
-    title: 'Passer a l action',
-    text: 'Avancer avec un cadre, des priorites et des etapes concretes semaine apres semaine.',
+    title: 'Support dirigeant',
+    text: 'Un appui fiable pour garder une vision claire, deleguer ce qui prend du temps et rester concentre sur la croissance.',
   },
+]
+
+const delegation = [
+  'Dossiers ranges et informations centralisees',
+  'Relances suivies sans charge mentale',
+  'Priorites business clarifiees chaque semaine',
+  'Process simples pour deleguer sans friction',
 ]
 
 function ServicesPage({ navigate }) {
   return (
-    <section className="page split-page">
-      <div className="section-heading">
-        <p className="eyebrow">Services</p>
-        <h2>Un accompagnement pour transformer une idee en presence solide.</h2>
-        <p>
-          Le but : ne plus avancer dans le flou. Lea aide a clarifier le projet,
-          organiser les priorites et creer une image coherente.
-        </p>
-      </div>
+    <motion.section
+      className="page split-page"
+      variants={revealContainer}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div className="section-heading" variants={revealContainer}>
+        <motion.p className="eyebrow" variants={revealItem}>
+          Services
+        </motion.p>
+        <motion.h2 variants={revealItem}>
+          Une expertise business et administrative pour remettre de l ordre dans ton activite.
+        </motion.h2>
+        <motion.p variants={revealItem}>
+          Le but : alleger ta charge mentale, fiabiliser ton organisation et te
+          permettre d avancer avec des priorites nettes, des dossiers propres et
+          un suivi clair.
+        </motion.p>
+      </motion.div>
 
-      <div className="service-grid">
+      <motion.div className="service-grid" variants={revealContainer}>
         {services.map((service) => (
-          <article className="service-card" key={service.title}>
+          <motion.article
+            className="service-card"
+            key={service.title}
+            variants={revealItem}
+            whileHover={cardHover}
+          >
             <div className="card-dot"></div>
             <h3>{service.title}</h3>
             <p>{service.text}</p>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="page-cta">
-        <p>Ideal pour une entrepreneure qui lance ou restructure son activite.</p>
-        <button className="button button-primary" type="button" onClick={() => navigate('contact')}>
+      <motion.aside className="premium-panel services-panel" variants={revealItem}>
+        <p className="eyebrow">Ce que tu recuperes</p>
+        <h3>Un back-office clair, calme et fiable.</h3>
+        <ul>
+          {delegation.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </motion.aside>
+
+      <motion.div className="page-cta" variants={revealItem}>
+        <p>Ideal pour un entrepreneur ou dirigeant qui veut deleguer avec confiance.</p>
+        <motion.button
+          className="button button-primary"
+          type="button"
+          onClick={() => navigate('contact')}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.98 }}
+        >
           Remplir le formulaire
-        </button>
-      </div>
-    </section>
+        </motion.button>
+      </motion.div>
+    </motion.section>
   )
 }
 

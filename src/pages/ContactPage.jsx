@@ -1,6 +1,15 @@
 import { useMemo, useState } from 'react'
+import { motion } from 'motion/react'
+import { revealContainer, revealItem } from '../animations'
 
 const email = 'leah.jhayan.contact@gmail.com'
+
+const requestIdeas = [
+  'Mettre de l ordre dans ton administratif',
+  'Suivre tes relances et demandes clients',
+  'Clarifier tes priorites business',
+  'Construire un cadre de delegation simple',
+]
 
 function ContactPage() {
   const [status, setStatus] = useState({ type: null, message: '' })
@@ -17,7 +26,7 @@ function ContactPage() {
       `Demande d'accompagnement - ${form.name || 'nouvelle demande'}`,
     )
     const body = encodeURIComponent(
-      `Bonjour Lea,\n\nJe souhaite avoir des informations sur ton accompagnement.\n\nNom : ${form.name}\nEmail : ${form.email}\nProjet : ${form.project}\nObjectif : ${form.goal}\n\nMerci,`,
+      `Bonjour Lea,\n\nJe souhaite avoir des informations sur ton accompagnement en assistanat business et administratif.\n\nNom : ${form.name}\nEmail : ${form.email}\nProjet / activite : ${form.project}\nBesoin prioritaire : ${form.goal}\n\nMerci,`,
     )
 
     return `mailto:${email}?subject=${subject}&body=${body}`
@@ -44,18 +53,39 @@ function ContactPage() {
   }
 
   return (
-    <section className="page contact-page">
-      <div className="section-heading">
-        <p className="eyebrow">Mini formulaire</p>
-        <h2>Envoie une demande directement dans sa boite mail.</h2>
-        <p>
+    <motion.section
+      className="page contact-page"
+      variants={revealContainer}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div className="section-heading" variants={revealContainer}>
+        <motion.p className="eyebrow" variants={revealItem}>
+          Demande d accompagnement
+        </motion.p>
+        <motion.h2 variants={revealItem}>
+          Presente ton besoin administratif ou business directement a Lea.
+        </motion.h2>
+        <motion.p variants={revealItem}>
           Complete les informations ci-dessous. Ton application mail s ouvrira
-          avec un message deja prepare pour Lea.
-        </p>
-      </div>
+          avec une demande claire pour parler organisation, delegation et suivi.
+        </motion.p>
+        <motion.aside className="premium-panel contact-helper" variants={revealItem}>
+          <p className="eyebrow">Tu peux demander</p>
+          <ul>
+            {requestIdeas.map((idea) => (
+              <li key={idea}>{idea}</li>
+            ))}
+          </ul>
+        </motion.aside>
+      </motion.div>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <label htmlFor="name">
+      <motion.form
+        className="contact-form"
+        onSubmit={handleSubmit}
+        variants={revealContainer}
+      >
+        <motion.label htmlFor="name" variants={revealItem}>
           Nom
           <input
             id="name"
@@ -65,8 +95,8 @@ function ContactPage() {
             onChange={updateForm}
             placeholder="Ton prenom et ton nom"
           />
-        </label>
-        <label htmlFor="email">
+        </motion.label>
+        <motion.label htmlFor="email" variants={revealItem}>
           Email
           <input
             id="email"
@@ -77,9 +107,9 @@ function ContactPage() {
             onChange={updateForm}
             placeholder="hello@tonbusiness.com"
           />
-        </label>
-        <label htmlFor="project">
-          Ton projet
+        </motion.label>
+        <motion.label htmlFor="project" variants={revealItem}>
+          Ton activite
           <textarea
             id="project"
             name="project"
@@ -87,11 +117,11 @@ function ContactPage() {
             required
             value={form.project}
             onChange={updateForm}
-            placeholder="Parle de ton activite, ton idee ou ton blocage du moment."
+            placeholder="Parle de ton activite, ton organisation actuelle ou ce que tu veux deleguer."
           />
-        </label>
-        <label htmlFor="goal">
-          Ton objectif
+        </motion.label>
+        <motion.label htmlFor="goal" variants={revealItem}>
+          Ton besoin prioritaire
           <textarea
             id="goal"
             name="goal"
@@ -99,21 +129,30 @@ function ContactPage() {
             required
             value={form.goal}
             onChange={updateForm}
-            placeholder="Ce que tu veux clarifier, structurer ou developper avec Lea."
+            placeholder="Administratif, relances, suivi client, coordination, process, priorites..."
           />
-        </label>
-        <button
+        </motion.label>
+        <motion.button
           className="button button-primary"
           type="submit"
           disabled={isSubmitting}
+          variants={revealItem}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.98 }}
         >
           {isSubmitting ? 'Preparation...' : 'Envoyer'}
-        </button>
+        </motion.button>
         {status.message && (
-          <p className={`form-status ${status.type || ''}`}>{status.message}</p>
+          <motion.p
+            className={`form-status ${status.type || ''}`}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {status.message}
+          </motion.p>
         )}
-      </form>
-    </section>
+      </motion.form>
+    </motion.section>
   )
 }
 

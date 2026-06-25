@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import ContactPage from './pages/ContactPage'
 import PresentationPage from './pages/PresentationPage'
 import ResultsPage from './pages/ResultsPage'
@@ -12,13 +13,27 @@ const pages = [
   { id: 'contact', label: 'Candidature' },
 ]
 
+const pageVariants = {
+  initial: { opacity: 0, y: 18, filter: 'blur(10px)' },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    filter: 'blur(8px)',
+    transition: { duration: 0.22, ease: 'easeInOut' },
+  },
+}
+
 function App() {
   const [activePage, setActivePage] = useState('presentation')
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navigateTo = (pageId) => {
     setActivePage(pageId)
-    setIsMenuOpen(false)
   }
 
   const pageComponents = {
@@ -39,41 +54,65 @@ function App() {
         >
           Lea Jha
         </button>
+      </header>
 
-        <div className="menu-wrap">
-          <button
-            className={isMenuOpen ? 'burger-button open' : 'burger-button'}
+      <motion.nav
+        className="circle-nav"
+        aria-label="Navigation principale"
+        initial={{ opacity: 0, y: -10, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {pages.map((page) => (
+          <motion.button
+            className={activePage === page.id ? 'nav-link active' : 'nav-link'}
             type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-            aria-expanded={isMenuOpen}
-            aria-controls="main-menu"
+            key={page.id}
+            onClick={() => navigateTo(page.id)}
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.96 }}
           >
-            <span />
-            <span />
-            <span />
-          </button>
+            {page.label}
+          </motion.button>
+        ))}
+      </motion.nav>
 
-          <nav
-            className={isMenuOpen ? 'site-nav open' : 'site-nav'}
-            id="main-menu"
-            aria-label="Navigation principale"
-          >
-            {pages.map((page) => (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activePage}
+          variants={pageVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+        >
+          {pageComponents[activePage]}
+        </motion.div>
+      </AnimatePresence>
+
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <span>Lea Jha</span>
+          <p>Assistanat business et administratif pour entrepreneurs qui veulent avancer avec clarte.</p>
+        </div>
+
+        <nav className="footer-nav" aria-label="Navigation secondaire">
+          {pages.map((page) => (
             <button
-              className={activePage === page.id ? 'nav-link active' : 'nav-link'}
+              className={activePage === page.id ? 'footer-link active' : 'footer-link'}
               type="button"
               key={page.id}
               onClick={() => navigateTo(page.id)}
             >
               {page.label}
             </button>
-            ))}
-          </nav>
-        </div>
-      </header>
+          ))}
+        </nav>
 
-      {pageComponents[activePage]}
+        <div className="footer-contact">
+          <span>Contact</span>
+          <a href="mailto:leah.jhayan.contact@gmail.com">leah.jhayan.contact@gmail.com</a>
+        </div>
+      </footer>
     </main>
   )
 }
