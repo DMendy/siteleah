@@ -73,20 +73,89 @@ main {
   letter-spacing: 0;
 }
 
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
+.menu-wrap {
+  position: relative;
+}
+
+.burger-button {
+  position: relative;
+  z-index: 2;
+  display: inline-grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(198, 155, 85, 0.38);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, 0.78);
+  box-shadow: 0 14px 34px rgba(107, 74, 53, 0.12);
+}
+
+.burger-button span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  grid-area: 1 / 1;
+  border-radius: 999px;
+  background: var(--brown);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.burger-button span:nth-child(1) {
+  transform: translateY(-6px);
+}
+
+.burger-button span:nth-child(3) {
+  transform: translateY(6px);
+}
+
+.burger-button.open span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.burger-button.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-button.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.site-nav {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  display: grid;
+  min-width: 235px;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid rgba(198, 155, 85, 0.28);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.96);
+  box-shadow: 0 22px 54px rgba(107, 74, 53, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.site-nav.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .nav-link {
-  min-height: 38px;
+  min-height: 42px;
   border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 8px 13px;
+  border-radius: 7px;
+  padding: 10px 12px;
   font-size: 12px;
   font-weight: 900;
+  text-align: left;
   text-transform: uppercase;
 }
 
@@ -346,6 +415,11 @@ blockquote {
   display: grid;
   gap: 16px;
   padding: clamp(22px, 4vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 8px;
+  background: rgba(255, 253, 249, 0.74);
+  box-shadow: 0 24px 55px rgba(107, 74, 53, 0.12);
+  backdrop-filter: blur(16px);
 }
 
 .contact-form label {
@@ -377,6 +451,31 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(198, 155, 85, 0.18);
 }
 
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+
+.form-status {
+  margin: 0;
+  border-radius: 7px;
+  padding: 12px 14px;
+  color: var(--brown);
+  background: rgba(198, 155, 85, 0.14);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.form-status.success {
+  color: #426437;
+  background: rgba(111, 128, 109, 0.16);
+}
+
+.form-status.error {
+  color: #9c3d36;
+  background: rgba(180, 77, 67, 0.14);
+}
+
 @media (max-width: 940px) {
   .hero-page,
   .split-page,
@@ -397,16 +496,20 @@ textarea:focus {
 
 @media (max-width: 680px) {
   .site-header {
-    align-items: flex-start;
+    gap: 14px;
   }
 
-  nav {
-    max-width: 230px;
+  .site-nav {
+    position: fixed;
+    top: 75px;
+    right: 18px;
+    left: 18px;
+    min-width: 0;
   }
 
   .nav-link {
-    min-height: 34px;
-    padding: 7px 10px;
+    min-height: 44px;
+    padding: 11px 12px;
     font-size: 11px;
   }
 
