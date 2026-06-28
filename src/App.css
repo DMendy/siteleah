@@ -54,6 +54,7 @@ button {
   cursor: pointer;
 }
 
+
 a {
   color: inherit;
   text-decoration: none;
@@ -1202,11 +1203,6 @@ h3 {
   margin-bottom: 0;
 }
 
-.proof-page {
-  background:
-    linear-gradient(180deg, rgba(248, 234, 219, 0.8), rgba(255, 248, 240, 0.7)),
-    var(--cream);
-}
 
 .proof-grid {
   display: grid;
@@ -1452,6 +1448,27 @@ textarea:focus {
   border-color: var(--gold);
   background: var(--white);
   box-shadow: 0 0 0 3px rgba(198, 155, 85, 0.18);
+}
+
+.contact-success {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+  min-height: 320px;
+  padding: clamp(36px, 6vw, 64px);
+}
+
+.contact-success h3 {
+  margin-bottom: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3.5vw, 42px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.contact-success p {
+  color: var(--muted);
 }
 
 @keyframes panel-sheen {

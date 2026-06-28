@@ -3,56 +3,57 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { cardHover, heroTitle, revealContainer, revealItem } from '../animations'
+import { SplitHeading } from '../components/SplitHeading'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const journey = [
-  'Je prends en charge l administratif, l organisation et le suivi operationnel dans un cadre fiable.',
-  'Je structure tes priorites business pour te liberer du temps et de la charge mentale.',
-  'Je t accompagne vers une activite plus claire, plus fluide et mieux maitrisee.',
+  "Je prends en charge l'administratif, l'organisation et le suivi opérationnel dans un cadre fiable.",
+  'Je structure tes priorités business pour te libérer du temps et de la charge mentale.',
+  "Je t'accompagne vers une activité plus claire, plus fluide et mieux maîtrisée.",
 ]
 
 const operations = [
   {
     eyebrow: '01',
     title: 'Admin propre',
-    text: 'Je garde tes documents, relances, informations et dossiers lisibles, ranges et faciles a retrouver.',
+    text: 'Je garde tes documents, relances, informations et dossiers lisibles, rangés et faciles à retrouver.',
   },
   {
     eyebrow: '02',
     title: 'Business suivi',
-    text: 'Je centralise les demandes, les priorites et les prochaines actions pour eviter les pertes de temps.',
+    text: 'Je centralise les demandes, les priorités et les prochaines actions pour éviter les pertes de temps.',
   },
   {
     eyebrow: '03',
-    title: 'Execution fluide',
-    text: 'Je fais avancer ton quotidien avec des routines simples, un suivi clair et moins de charge mentale.',
+    title: 'Exécution fluide',
+    text: "Je fais avancer ton quotidien avec des routines simples, un suivi clair et moins de charge mentale.",
   },
 ]
 
 const storyPanels = [
   {
     kicker: 'Avant',
-    title: 'Je repere les infos dispersees.',
-    text: 'Je rassemble tes messages, factures, demandes clients, relances et priorites dans un centre clair.',
-    label: 'Inbox dispersee',
+    title: 'Je repère les infos dispersées.',
+    text: 'Je rassemble tes messages, factures, demandes clients, relances et priorités dans un centre clair.',
+    label: 'Inbox dispersée',
   },
   {
     kicker: 'Tri',
-    title: 'Je remets chaque sujet a sa place.',
-    text: 'Je clarifie les urgences et je transforme le bruit operationnel en liste d actions lisible.',
+    title: 'Je remets chaque sujet à sa place.',
+    text: "Je clarifie les urgences et je transforme le bruit opérationnel en liste d'actions lisible.",
     label: 'Plan propre',
   },
   {
     kicker: 'Suivi',
     title: 'Je garde chaque dossier en mouvement.',
-    text: 'Je suis les relances, les documents et les prochaines etapes avec precision pour eviter les oublis.',
+    text: 'Je suis les relances, les documents et les prochaines étapes avec précision pour éviter les oublis.',
     label: 'Dossiers suivis',
   },
   {
-    kicker: 'Apres',
+    kicker: 'Après',
     title: 'Je te redonne de la hauteur.',
-    text: 'Je transforme l administratif en systeme fiable pour qu il ne pilote plus ta journee.',
+    text: "Je transforme l'administratif en système fiable pour qu'il ne pilote plus ta journée.",
     label: 'Vision claire',
   },
 ]
@@ -165,15 +166,15 @@ function PresentationPage({ navigate }) {
 
       <motion.div className="hero-copy-block" variants={revealContainer}>
         <motion.p className="eyebrow" variants={revealItem}>
-          Assistante business • administratif • organisation
+          Assistante business · administratif · organisation
         </motion.p>
         <motion.h1 className="hero-title hero-logo-title" variants={heroTitle}>
           <img src="/logo-lea-jha.png" alt="Lea Jha" />
         </motion.h1>
         <motion.p className="hero-copy" variants={revealItem}>
-          J accompagne les entrepreneurs et dirigeants dans leur gestion
-          administrative, leur organisation business et leur suivi operationnel
-          avec precision, calme et methode.
+          J&apos;accompagne les entrepreneurs et dirigeants dans leur gestion
+          administrative, leur organisation business et leur suivi opérationnel
+          avec précision, calme et méthode.
         </motion.p>
         <motion.div className="hero-actions" variants={revealItem}>
           <motion.button
@@ -181,16 +182,16 @@ function PresentationPage({ navigate }) {
             type="button"
             onClick={() => navigate('services')}
             whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
           >
-            Decouvrir mes services
+            Découvrir mes services
           </motion.button>
           <motion.button
             className="button button-secondary"
             type="button"
-            onClick={() => navigate('contact')}
+            onClick={() => navigate('candidature')}
             whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
           >
             Me confier ton organisation
           </motion.button>
@@ -199,22 +200,22 @@ function PresentationPage({ navigate }) {
         <motion.div className="hero-proof-row" variants={revealContainer}>
           <motion.div variants={revealItem}>
             <strong>Admin</strong>
-            <span>suivi fiable et rigoureux</span>
+            <span>Suivi fiable et rigoureux</span>
           </motion.div>
           <motion.div variants={revealItem}>
             <strong>Business</strong>
-            <span>priorites structurees</span>
+            <span>Priorités structurées</span>
           </motion.div>
           <motion.div variants={revealItem}>
             <strong>Ops</strong>
-            <span>execution fluide au quotidien</span>
+            <span>Exécution fluide au quotidien</span>
           </motion.div>
         </motion.div>
       </motion.div>
 
       <motion.div
         className="portrait-stage"
-        aria-label="Resume du parcours"
+        aria-label="Résumé du parcours"
         variants={revealItem}
         style={{ y: portraitY }}
       >
@@ -226,12 +227,12 @@ function PresentationPage({ navigate }) {
           <img
             className="portrait-photo"
             src="/lea-portrait-bureau.jpg"
-            alt="Lea Jha a son bureau"
+            alt="Lea Jha à son bureau"
           />
           <div className="portrait-content">
             <div className="portrait-meta">
               <span>Experte assistanat business</span>
-              <span>Administratif • operations • suivi</span>
+              <span>Administratif · opérations · suivi</span>
             </div>
           </div>
         </motion.div>
@@ -242,7 +243,7 @@ function PresentationPage({ navigate }) {
           animate={{ opacity: 1, x: 0, rotate: -2 }}
           transition={{ delay: 0.74, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span>Ma methode</span>
+          <span>Ma méthode</span>
           <strong>ordre avant charge mentale</strong>
         </motion.div>
         <motion.div
@@ -252,7 +253,7 @@ function PresentationPage({ navigate }) {
           transition={{ delay: 0.92, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <strong>24h</strong>
-          <span>suivi reactif et structure</span>
+          <span>suivi réactif et structuré</span>
         </motion.div>
       </motion.div>
 
@@ -264,7 +265,7 @@ function PresentationPage({ navigate }) {
             variants={revealItem}
             whileHover={cardHover}
           >
-            <span></span>
+            <span aria-hidden="true" />
             <p>{item}</p>
           </motion.article>
         ))}
@@ -272,8 +273,8 @@ function PresentationPage({ navigate }) {
 
       <section className="story-horizontal" ref={storySectionRef}>
         <div className="story-intro">
-          <p className="eyebrow">Mini storytelling</p>
-          <h2>Du chaos administratif au bureau qui respire.</h2>
+          <p className="eyebrow">Mon processus</p>
+          <SplitHeading>Du chaos administratif au bureau qui respire.</SplitHeading>
         </div>
 
         <div className="story-viewport" ref={storyViewportRef}>
@@ -282,7 +283,7 @@ function PresentationPage({ navigate }) {
               <article className="story-panel" key={panel.title}>
                 <div className={`story-image-frame story-image-${index + 1}`}>
                   <span>{panel.label}</span>
-                  <div className="story-image-lines">
+                  <div className="story-image-lines" aria-hidden="true">
                     <i />
                     <i />
                     <i />
@@ -309,11 +310,11 @@ function PresentationPage({ navigate }) {
         viewport={{ once: true, amount: 0.18 }}
       >
         <motion.div className="operations-heading" variants={revealItem}>
-          <p className="eyebrow">Systeme operationnel</p>
-          <h2>Un centre de controle pour sortir l administratif de ta tete.</h2>
+          <p className="eyebrow">Système opérationnel</p>
+          <SplitHeading baseDelay={0.05}>Un centre de contrôle pour sortir l'administratif de ta tête.</SplitHeading>
           <p>
-            Cet objet central represente mon bureau : chaque scroll ouvre une
-            couche de suivi, de priorisation et d execution.
+            Cet objet central représente mon bureau : chaque scroll ouvre une
+            couche de suivi, de priorisation et d&apos;exécution.
           </p>
         </motion.div>
 
@@ -334,7 +335,7 @@ function PresentationPage({ navigate }) {
             ))}
           </div>
 
-          <div className="planner-sticky" aria-label="Dossier business anime">
+          <div className="planner-sticky" aria-label="Dossier business animé">
             <motion.div
               className="business-planner"
               style={{ rotate: plannerRotate, scale: plannerScale, y: plannerY }}
@@ -352,7 +353,7 @@ function PresentationPage({ navigate }) {
                 <div className="planner-clip" />
                 <span>Mon bureau</span>
                 <strong>Business Desk</strong>
-                <div className="planner-lines">
+                <div className="planner-lines" aria-hidden="true">
                   <i />
                   <i />
                   <i />
@@ -360,7 +361,7 @@ function PresentationPage({ navigate }) {
               </div>
               <div className="planner-task planner-task-one">relances</div>
               <div className="planner-task planner-task-two">dossiers</div>
-              <div className="planner-task planner-task-three">priorites</div>
+              <div className="planner-task planner-task-three">priorités</div>
             </motion.div>
           </div>
         </div>

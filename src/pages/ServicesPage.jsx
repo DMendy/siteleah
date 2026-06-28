@@ -1,30 +1,31 @@
 import { motion } from 'motion/react'
 import { cardHover, revealContainer, revealItem } from '../animations'
+import { SplitHeading } from '../components/SplitHeading'
 
 const services = [
   {
     title: 'Gestion administrative',
-    text: 'Je suis tes dossiers, j organise tes documents et je mets au propre les informations importantes.',
+    text: "Je suis tes dossiers, j'organise tes documents et je mets au propre les informations importantes.",
   },
   {
     title: 'Assistanat business',
-    text: 'Je t aide a prioriser, je coordonne les actions et je suis les demandes qui rythment ton quotidien.',
+    text: "Je t'aide à prioriser, je coordonne les actions et je suis les demandes qui rythment ton quotidien.",
   },
   {
-    title: 'Organisation operationnelle',
-    text: 'Je mets en place des process simples, des tableaux de suivi et des routines pour gagner en fluidite.',
+    title: 'Organisation opérationnelle',
+    text: "Je mets en place des process simples, des tableaux de suivi et des routines pour gagner en fluidité.",
   },
   {
     title: 'Support dirigeant',
-    text: 'Je deviens ton appui fiable pour deleguer ce qui prend du temps et garder ton energie pour la croissance.',
+    text: "Je deviens ton appui fiable pour déléguer ce qui prend du temps et garder ton énergie pour la croissance.",
   },
 ]
 
 const delegation = [
   'Je range tes dossiers et je centralise les informations',
   'Je suis tes relances sans ajouter de charge mentale',
-  'Je clarifie tes priorites business chaque semaine',
-  'Je cree des process simples pour deleguer sans friction',
+  'Je clarifie tes priorités business chaque semaine',
+  'Je crée des process simples pour déléguer sans friction',
 ]
 
 function ServicesPage({ navigate }) {
@@ -39,12 +40,10 @@ function ServicesPage({ navigate }) {
         <motion.p className="eyebrow" variants={revealItem}>
           Services
         </motion.p>
-        <motion.h2 variants={revealItem}>
-          Je mets mon expertise business et administrative au service de ton activite.
-        </motion.h2>
+        <SplitHeading baseDelay={0.08}>Je mets mon expertise business et administrative au service de ton activité.</SplitHeading>
         <motion.p variants={revealItem}>
-          Mon objectif : alleger ta charge mentale, fiabiliser ton organisation
-          et te permettre d avancer avec des priorites nettes, des dossiers
+          Mon objectif : alléger ta charge mentale, fiabiliser ton organisation
+          et te permettre d&apos;avancer avec des priorités nettes, des dossiers
           propres et un suivi clair.
         </motion.p>
       </motion.div>
@@ -57,7 +56,7 @@ function ServicesPage({ navigate }) {
             variants={revealItem}
             whileHover={cardHover}
           >
-            <div className="card-dot"></div>
+            <div className="card-dot" aria-hidden="true" />
             <h3>{service.title}</h3>
             <p>{service.text}</p>
           </motion.article>
@@ -68,7 +67,7 @@ function ServicesPage({ navigate }) {
         <div className="services-portrait">
           <img
             src="/lea-travail-bureau.jpg"
-            alt="Lea Jha organise le suivi d un dossier"
+            alt="Lea Jha organise le suivi d'un dossier"
             loading="lazy"
           />
         </div>
@@ -84,13 +83,13 @@ function ServicesPage({ navigate }) {
       </motion.aside>
 
       <motion.div className="page-cta" variants={revealItem}>
-        <p>Je travaille aux cotes des entrepreneurs et dirigeants qui veulent deleguer avec confiance.</p>
+        <p>Je travaille aux côtés des entrepreneurs et dirigeants qui veulent déléguer avec confiance.</p>
         <motion.button
           className="button button-primary"
           type="button"
-          onClick={() => navigate('contact')}
+          onClick={() => navigate('candidature')}
           whileHover={{ y: -3 }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
         >
           Me parler de ton besoin
         </motion.button>
