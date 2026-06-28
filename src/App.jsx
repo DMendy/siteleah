@@ -52,7 +52,7 @@ function App() {
           onClick={() => navigateTo('presentation')}
           aria-label="Accueil Lea Jha"
         >
-          Lea Jha
+          <img className="brand-logo" src="/logo-lea-jha.png" alt="" />
         </button>
       </header>
 
@@ -91,8 +91,8 @@ function App() {
 
       <footer className="site-footer">
         <div className="footer-brand">
-          <span>Lea Jha</span>
-          <p>Assistanat business et administratif pour entrepreneurs qui veulent avancer avec clarte.</p>
+          <img className="footer-logo" src="/logo-lea-jha.png" alt="Lea Jha" />
+          <p>J accompagne les entrepreneurs qui veulent avancer avec une organisation claire et fiable.</p>
         </div>
 
         <nav className="footer-nav" aria-label="Navigation secondaire">

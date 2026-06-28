@@ -1,24 +1,54 @@
 import { motion } from 'motion/react'
-import { cardHover, revealContainer, revealItem } from '../animations'
-
-const proofs = [
-  { value: '24h', label: 'suivi reactif pour garder les demandes sous controle' },
-  { value: '4', label: 'piliers couverts : admin, business, organisation et operations' },
-  { value: '1', label: 'interlocutrice fiable pour centraliser les priorites' },
-  { value: '0', label: 'flou inutile dans les dossiers, relances et prochaines actions' },
-]
+import { revealContainer, revealItem } from '../animations'
 
 const testimonials = [
-  'Une organisation plus claire, des priorites mieux posees et beaucoup moins de charge mentale.',
-  'Un vrai soutien pour avancer sans laisser l administratif ralentir le business.',
-  'Une methode calme, fiable et precise pour remettre de l ordre dans le quotidien.',
+  {
+    image: '/temoignage-equipe-suivi-01.png',
+    label: 'Suivi d equipe',
+  },
+  {
+    image: '/temoignage-equipe-suivi-02.png',
+    label: 'Coordination d equipe',
+  },
+  {
+    image: '/temoignage-collaboration-client.png',
+    label: 'Retour de collaboration',
+  },
+  {
+    image: '/temoignage-coordination-client.png',
+    label: 'Retour de coordination',
+  },
 ]
 
 const changes = [
-  'Les demandes ne restent plus perdues entre plusieurs canaux.',
-  'Les relances importantes sont posees, suivies et assumees.',
-  'Les priorites sont visibles avant que la semaine commence.',
-  'Le dirigeant garde son energie pour les decisions importantes.',
+  'Je rassemble tes demandes pour qu elles ne se perdent plus entre plusieurs canaux.',
+  'Je pose et je suis les relances importantes.',
+  'Je rends tes priorites visibles avant que la semaine commence.',
+  'Je protege ton energie pour les decisions importantes.',
+]
+
+const evidence = [
+  {
+    src: '/resultat-tickets-semaine.png',
+    alt: 'Exemple de suivi de tickets traites sur une semaine',
+    label: 'Suivi hebdomadaire',
+    crop: 'tickets',
+  },
+  {
+    src: '/resultat-satisfaction-positive.png',
+    alt: 'Indicateur de satisfaction et remarques positives',
+    label: 'Satisfaction mesuree',
+  },
+  {
+    src: '/resultat-qualite-redactionnelle.png',
+    alt: 'Evaluation de la qualite redactionnelle des reponses',
+    label: 'Qualite redactionnelle',
+  },
+  {
+    src: '/resultat-relation-client.png',
+    alt: 'Evaluation de la qualite de relation client',
+    label: 'Relation client',
+  },
 ]
 
 function ResultsPage({ navigate }) {
@@ -34,34 +64,60 @@ function ResultsPage({ navigate }) {
           Social proof
         </motion.p>
         <motion.h2 variants={revealItem}>
-          Des resultats visibles quand l organisation devient un vrai levier business.
+          Je rends les resultats visibles en faisant de l organisation un vrai levier business.
         </motion.h2>
       </motion.div>
 
-      <motion.div className="proof-grid" variants={revealContainer}>
-        {proofs.map((proof) => (
-          <motion.article
-            className="proof-card"
-            key={proof.label}
-            variants={revealItem}
-            whileHover={cardHover}
-          >
-            <motion.strong
-              initial={{ scale: 0.86 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      <motion.section className="raw-testimonials" variants={revealContainer}>
+        <motion.div className="raw-testimonials-heading" variants={revealItem}>
+          <p className="eyebrow">Temoignages</p>
+          <h3>Les retours recus au fil de mes collaborations.</h3>
+        </motion.div>
+        <div className="raw-testimonial-grid">
+          {testimonials.map((testimonial) => (
+            <motion.figure
+              className="raw-testimonial-card"
+              key={testimonial.image}
+              variants={revealItem}
+              whileHover={{ y: -5 }}
             >
-              {proof.value}
-            </motion.strong>
-            <p>{proof.label}</p>
-          </motion.article>
-        ))}
-      </motion.div>
+              <img src={testimonial.image} alt={testimonial.label} loading="lazy" />
+              <figcaption>{testimonial.label}</figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section className="evidence-section" variants={revealContainer}>
+        <motion.div className="evidence-heading" variants={revealItem}>
+          <p className="eyebrow">Preuves concretes</p>
+          <h3>Mes standards se mesurent sur le terrain.</h3>
+          <p>
+            Je suis chaque indicateur avec la meme exigence : volume traite,
+            satisfaction, qualite redactionnelle et relation client.
+          </p>
+        </motion.div>
+        <div className="evidence-grid">
+          {evidence.map((item) => (
+            <motion.figure
+              className="evidence-card"
+              key={item.src}
+              variants={revealItem}
+              whileHover={{ y: -5 }}
+            >
+              <div className={`evidence-image${item.crop ? ` evidence-image-${item.crop}` : ''}`}>
+                <img src={item.src} alt={item.alt} loading="lazy" />
+              </div>
+              <figcaption>{item.label}</figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </motion.section>
 
       <motion.section className="premium-panel change-panel" variants={revealItem}>
         <div>
           <p className="eyebrow">Concretement</p>
-          <h3>Ce qui change quand le back-office tient debout.</h3>
+          <h3>Ce que je change quand je reprends ton back-office.</h3>
         </div>
         <ul>
           {changes.map((change) => (
@@ -69,18 +125,6 @@ function ResultsPage({ navigate }) {
           ))}
         </ul>
       </motion.section>
-
-      <motion.div className="testimonial-grid" variants={revealContainer}>
-        {testimonials.map((testimonial) => (
-          <motion.blockquote
-            key={testimonial}
-            variants={revealItem}
-            whileHover={{ y: -6, rotate: -0.5 }}
-          >
-            {testimonial}
-          </motion.blockquote>
-        ))}
-      </motion.div>
 
       <motion.button
         className="button button-primary"

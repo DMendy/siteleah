@@ -46,7 +46,7 @@ function ContactPage() {
       window.location.href = mailHref
       setStatus({
         type: 'success',
-        message: 'Ton mail est pret. Verifie-le dans ton application mail puis envoie-le a Lea.',
+        message: 'Ton mail est pret. Verifie-le dans ton application mail puis envoie-le-moi.',
       })
       setIsSubmitting(false)
     }, 350)
@@ -64,7 +64,7 @@ function ContactPage() {
           Demande d accompagnement
         </motion.p>
         <motion.h2 variants={revealItem}>
-          Presente ton besoin administratif ou business directement a Lea.
+          Presente-moi ton besoin administratif ou business.
         </motion.h2>
         <motion.p variants={revealItem}>
           Complete les informations ci-dessous. Ton application mail s ouvrira

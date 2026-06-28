@@ -2,62 +2,60 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { cardHover, heroLetter, heroTitle, revealContainer, revealItem } from '../animations'
+import { cardHover, heroTitle, revealContainer, revealItem } from '../animations'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const journey = [
-  'Gestion administrative, organisation et suivi operationnel avec un cadre fiable.',
-  'Structuration des priorites business pour liberer du temps aux dirigeants.',
-  'Accompagnement des entrepreneurs qui veulent une activite plus claire, fluide et maitrisee.',
+  'Je prends en charge l administratif, l organisation et le suivi operationnel dans un cadre fiable.',
+  'Je structure tes priorites business pour te liberer du temps et de la charge mentale.',
+  'Je t accompagne vers une activite plus claire, plus fluide et mieux maitrisee.',
 ]
 
 const operations = [
   {
     eyebrow: '01',
     title: 'Admin propre',
-    text: 'Documents, relances, informations et dossiers restent lisibles, ranges et faciles a retrouver.',
+    text: 'Je garde tes documents, relances, informations et dossiers lisibles, ranges et faciles a retrouver.',
   },
   {
     eyebrow: '02',
     title: 'Business suivi',
-    text: 'Les demandes, priorites et prochaines actions sont centralisees pour eviter les pertes de temps.',
+    text: 'Je centralise les demandes, les priorites et les prochaines actions pour eviter les pertes de temps.',
   },
   {
     eyebrow: '03',
     title: 'Execution fluide',
-    text: 'Le quotidien avance avec des routines simples, un suivi clair et moins de charge mentale.',
+    text: 'Je fais avancer ton quotidien avec des routines simples, un suivi clair et moins de charge mentale.',
   },
 ]
 
 const storyPanels = [
   {
     kicker: 'Avant',
-    title: 'Les infos sont partout.',
-    text: 'Messages, factures, demandes clients, relances et priorites avancent sans centre clair.',
+    title: 'Je repere les infos dispersees.',
+    text: 'Je rassemble tes messages, factures, demandes clients, relances et priorites dans un centre clair.',
     label: 'Inbox dispersee',
   },
   {
     kicker: 'Tri',
-    title: 'Lea remet chaque sujet a sa place.',
-    text: 'Elle centralise, clarifie les urgences et transforme le bruit operationnel en liste d actions lisible.',
+    title: 'Je remets chaque sujet a sa place.',
+    text: 'Je clarifie les urgences et je transforme le bruit operationnel en liste d actions lisible.',
     label: 'Plan propre',
   },
   {
     kicker: 'Suivi',
-    title: 'Chaque dossier garde son rythme.',
-    text: 'Relances, documents et prochaines etapes sont suivis avec precision pour eviter les oublis.',
+    title: 'Je garde chaque dossier en mouvement.',
+    text: 'Je suis les relances, les documents et les prochaines etapes avec precision pour eviter les oublis.',
     label: 'Dossiers suivis',
   },
   {
     kicker: 'Apres',
-    title: 'Le dirigeant reprend de la hauteur.',
-    text: 'L administratif ne pilote plus la journee. Il devient un systeme fiable au service du business.',
+    title: 'Je te redonne de la hauteur.',
+    text: 'Je transforme l administratif en systeme fiable pour qu il ne pilote plus ta journee.',
     label: 'Vision claire',
   },
 ]
-
-const heroName = ['Lea', 'Jha']
 
 function PresentationPage({ navigate }) {
   const sectionRef = useRef(null)
@@ -169,25 +167,13 @@ function PresentationPage({ navigate }) {
         <motion.p className="eyebrow" variants={revealItem}>
           Assistante business • administratif • organisation
         </motion.p>
-        <motion.h1 className="hero-title" variants={heroTitle}>
-          {heroName.map((word) => (
-            <span className="hero-word" key={word}>
-              {word.split('').map((letter, index) => (
-                <motion.span
-                  className="hero-letter"
-                  key={`${word}-${letter}-${index}`}
-                  variants={heroLetter}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </span>
-          ))}
+        <motion.h1 className="hero-title hero-logo-title" variants={heroTitle}>
+          <img src="/logo-lea-jha.png" alt="Lea Jha" />
         </motion.h1>
         <motion.p className="hero-copy" variants={revealItem}>
-          Lea accompagne les entrepreneurs et dirigeants dans la gestion
-          administrative, l organisation business et le suivi operationnel avec
-          precision, calme et methode.
+          J accompagne les entrepreneurs et dirigeants dans leur gestion
+          administrative, leur organisation business et leur suivi operationnel
+          avec precision, calme et methode.
         </motion.p>
         <motion.div className="hero-actions" variants={revealItem}>
           <motion.button
@@ -197,7 +183,7 @@ function PresentationPage({ navigate }) {
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.98 }}
           >
-            Voir ses services
+            Decouvrir mes services
           </motion.button>
           <motion.button
             className="button button-secondary"
@@ -206,7 +192,7 @@ function PresentationPage({ navigate }) {
             whileHover={{ y: -3 }}
             whileTap={{ scale: 0.98 }}
           >
-            Deleguer avec Lea
+            Me confier ton organisation
           </motion.button>
         </motion.div>
 
@@ -237,15 +223,17 @@ function PresentationPage({ navigate }) {
           className="portrait-panel"
           whileHover={{ rotate: -1, scale: 1.015 }}
         >
-          <div className="portrait-mark">LJ</div>
-          <div className="portrait-meta">
-            <span>Experte assistanat business</span>
-            <span>Administratif • operations • suivi</span>
+          <img
+            className="portrait-photo"
+            src="/lea-portrait-bureau.jpg"
+            alt="Lea Jha a son bureau"
+          />
+          <div className="portrait-content">
+            <div className="portrait-meta">
+              <span>Experte assistanat business</span>
+              <span>Administratif • operations • suivi</span>
+            </div>
           </div>
-          <p>
-            Lea met de l ordre dans les process, les dossiers et les priorites
-            pour aider les entrepreneurs a piloter leur activite avec clarte.
-          </p>
         </motion.div>
         <motion.div
           className="hero-signature-card"
@@ -254,7 +242,7 @@ function PresentationPage({ navigate }) {
           animate={{ opacity: 1, x: 0, rotate: -2 }}
           transition={{ delay: 0.74, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span>Methode Lea Jha</span>
+          <span>Ma methode</span>
           <strong>ordre avant charge mentale</strong>
         </motion.div>
         <motion.div
@@ -324,8 +312,8 @@ function PresentationPage({ navigate }) {
           <p className="eyebrow">Systeme operationnel</p>
           <h2>Un centre de controle pour sortir l administratif de ta tete.</h2>
           <p>
-            L objet central represente le bureau de Lea : chaque scroll ouvre
-            une couche de suivi, de priorisation et d execution.
+            Cet objet central represente mon bureau : chaque scroll ouvre une
+            couche de suivi, de priorisation et d execution.
           </p>
         </motion.div>
 
@@ -362,7 +350,7 @@ function PresentationPage({ navigate }) {
               />
               <div className="planner-cover">
                 <div className="planner-clip" />
-                <span>Lea Jha Office</span>
+                <span>Mon bureau</span>
                 <strong>Business Desk</strong>
                 <div className="planner-lines">
                   <i />

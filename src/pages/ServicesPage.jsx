@@ -4,27 +4,27 @@ import { cardHover, revealContainer, revealItem } from '../animations'
 const services = [
   {
     title: 'Gestion administrative',
-    text: 'Suivi des dossiers, organisation des documents, relances, preparation et mise au propre des informations importantes.',
+    text: 'Je suis tes dossiers, j organise tes documents et je mets au propre les informations importantes.',
   },
   {
     title: 'Assistanat business',
-    text: 'Aide a la priorisation, coordination des actions, suivi des demandes et soutien dans les decisions du quotidien.',
+    text: 'Je t aide a prioriser, je coordonne les actions et je suis les demandes qui rythment ton quotidien.',
   },
   {
     title: 'Organisation operationnelle',
-    text: 'Mise en place de process simples, tableaux de suivi, routines de travail et outils pour gagner en fluidite.',
+    text: 'Je mets en place des process simples, des tableaux de suivi et des routines pour gagner en fluidite.',
   },
   {
     title: 'Support dirigeant',
-    text: 'Un appui fiable pour garder une vision claire, deleguer ce qui prend du temps et rester concentre sur la croissance.',
+    text: 'Je deviens ton appui fiable pour deleguer ce qui prend du temps et garder ton energie pour la croissance.',
   },
 ]
 
 const delegation = [
-  'Dossiers ranges et informations centralisees',
-  'Relances suivies sans charge mentale',
-  'Priorites business clarifiees chaque semaine',
-  'Process simples pour deleguer sans friction',
+  'Je range tes dossiers et je centralise les informations',
+  'Je suis tes relances sans ajouter de charge mentale',
+  'Je clarifie tes priorites business chaque semaine',
+  'Je cree des process simples pour deleguer sans friction',
 ]
 
 function ServicesPage({ navigate }) {
@@ -40,12 +40,12 @@ function ServicesPage({ navigate }) {
           Services
         </motion.p>
         <motion.h2 variants={revealItem}>
-          Une expertise business et administrative pour remettre de l ordre dans ton activite.
+          Je mets mon expertise business et administrative au service de ton activite.
         </motion.h2>
         <motion.p variants={revealItem}>
-          Le but : alleger ta charge mentale, fiabiliser ton organisation et te
-          permettre d avancer avec des priorites nettes, des dossiers propres et
-          un suivi clair.
+          Mon objectif : alleger ta charge mentale, fiabiliser ton organisation
+          et te permettre d avancer avec des priorites nettes, des dossiers
+          propres et un suivi clair.
         </motion.p>
       </motion.div>
 
@@ -65,8 +65,17 @@ function ServicesPage({ navigate }) {
       </motion.div>
 
       <motion.aside className="premium-panel services-panel" variants={revealItem}>
-        <p className="eyebrow">Ce que tu recuperes</p>
-        <h3>Un back-office clair, calme et fiable.</h3>
+        <div className="services-portrait">
+          <img
+            src="/lea-travail-bureau.jpg"
+            alt="Lea Jha organise le suivi d un dossier"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <p className="eyebrow">Ce que je mets en place</p>
+          <h3>Un back-office clair, calme et fiable.</h3>
+        </div>
         <ul>
           {delegation.map((item) => (
             <li key={item}>{item}</li>
@@ -75,7 +84,7 @@ function ServicesPage({ navigate }) {
       </motion.aside>
 
       <motion.div className="page-cta" variants={revealItem}>
-        <p>Ideal pour un entrepreneur ou dirigeant qui veut deleguer avec confiance.</p>
+        <p>Je travaille aux cotes des entrepreneurs et dirigeants qui veulent deleguer avec confiance.</p>
         <motion.button
           className="button button-primary"
           type="button"
@@ -83,7 +92,7 @@ function ServicesPage({ navigate }) {
           whileHover={{ y: -3 }}
           whileTap={{ scale: 0.98 }}
         >
-          Remplir le formulaire
+          Me parler de ton besoin
         </motion.button>
       </motion.div>
     </motion.section>
