@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
@@ -33,16 +33,46 @@ const pageVariants = {
   },
 }
 
+const overlayVariants = {
+  hidden: { opacity: 0, transition: { duration: 0.18 } },
+  show:   { opacity: 1, transition: { duration: 0.22 } },
+}
+
+const overlayNavVariants = {
+  hidden: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+  show:   { transition: { staggerChildren: 0.08, delayChildren: 0.06 } },
+}
+
+const overlayLinkVariants = {
+  hidden: { opacity: 0, y: 36, transition: { duration: 0.18 } },
+  show:   { opacity: 1, y: 0,  transition: { duration: 0.52, ease: [0.22, 1, 0.36, 1] } },
+}
+
 function App() {
   const navigate = useNavigate()
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const activeId = pages.find((p) => p.path === location.pathname)?.id ?? 'presentation'
 
   const navigateTo = (pageId) => {
     const page = pages.find((p) => p.id === pageId)
-    if (page) navigate(page.path)
+    if (page) {
+      navigate(page.path)
+      setMenuOpen(false)
+    }
   }
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') setMenuOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
 
   /* ── Magnetic buttons ── */
   useEffect(() => {
@@ -77,6 +107,41 @@ function App() {
         <SceneLazy />
       </Suspense>
 
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="mobile-overlay"
+            variants={overlayVariants}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            onClick={() => setMenuOpen(false)}
+          >
+            <motion.nav
+              className="mobile-overlay-nav"
+              aria-label="Navigation mobile"
+              variants={overlayNavVariants}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {pages.map((page) => (
+                <motion.button
+                  key={page.id}
+                  className={`mobile-nav-link${activeId === page.id ? ' active' : ''}`}
+                  type="button"
+                  variants={overlayLinkVariants}
+                  onClick={() => navigateTo(page.id)}
+                >
+                  {page.label}
+                </motion.button>
+              ))}
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <main>
         <header className="site-header">
           <button
@@ -86,6 +151,19 @@ function App() {
             aria-label="Accueil Lea Jha"
           >
             <img className="brand-logo" src="/logo-lea-jha.png" alt="" />
+          </button>
+
+          <button
+            className="burger-btn"
+            type="button"
+            aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span className="burger-bar" />
+            <span className="burger-bar" />
+            <span className="burger-bar" />
           </button>
         </header>
 
