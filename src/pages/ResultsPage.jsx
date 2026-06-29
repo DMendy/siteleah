@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { cardHover, revealContainer, revealItem } from '../animations'
 import { SplitHeading } from '../components/SplitHeading'
+import { TestimonialCarousel } from '../components/TestimonialCarousel'
 
 const changes = [
   "Je rassemble tes demandes pour qu'elles ne se perdent plus entre plusieurs canaux.",
@@ -105,27 +106,7 @@ function ResultsPage({ navigate }) {
         </ul>
       </motion.section>
 
-      <motion.section className="testimonials-section" variants={revealContainer}>
-        <motion.div className="testimonials-heading" variants={revealItem}>
-          <p className="eyebrow">Témoignages</p>
-          <h3>Les retours reçus au fil de mes collaborations.</h3>
-        </motion.div>
-        <div className="evidence-grid">
-          {testimonials.map((testimonial) => (
-            <motion.figure
-              className="evidence-card"
-              key={testimonial.image}
-              variants={revealItem}
-              whileHover={cardHover}
-            >
-              <div className="evidence-image testimonial-img">
-                <img src={testimonial.image} alt={testimonial.label} loading="lazy" />
-              </div>
-              <figcaption>{testimonial.label}</figcaption>
-            </motion.figure>
-          ))}
-        </div>
-      </motion.section>
+      <TestimonialCarousel />
 
       <motion.button
         className="button button-primary"

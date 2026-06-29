@@ -1535,31 +1535,6 @@ h3 {
   text-transform: uppercase;
 }
 
-.testimonial-img {
-  position: relative;
-  padding: 0;
-  height: clamp(280px, 22vw, 380px);
-}
-
-.testimonial-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 10%;
-}
-
-.testimonial-img::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-  z-index: 2;
-  backdrop-filter: blur(28px) brightness(1.05);
-  -webkit-backdrop-filter: blur(28px) brightness(1.05);
-  pointer-events: none;
-}
 
 .change-panel h3 {
   margin-bottom: 0;
@@ -1678,6 +1653,118 @@ textarea:focus {
   }
 }
 
+/* ── Testimonials carousel (home page) ──────────────────────────────────── */
+
+.temoignage-carousel-section {
+  margin: clamp(56px, 9vw, 108px) 0 clamp(46px, 7vw, 88px);
+}
+
+.temoignage-carousel-header {
+  padding: 0 clamp(22px, 5vw, 76px);
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.temoignage-carousel-header h3 {
+  margin-bottom: 0;
+  font-size: clamp(26px, 3.5vw, 42px);
+}
+
+.temoignage-carousel-track-wrap {
+  position: relative;
+  overflow: hidden;
+  transition: height 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.temoignage-carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 420ms ease;
+  padding: 0 clamp(22px, 5vw, 76px);
+  display: flex;
+  justify-content: center;
+}
+
+.temoignage-carousel-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.temoignage-carousel-card {
+  width: 100%;
+  max-width: 540px;
+  border-radius: 28px 8px 28px 8px;
+  overflow: hidden;
+  border: 1px solid rgba(198, 155, 85, 0.32);
+  box-shadow: 0 20px 56px rgba(107, 74, 53, 0.13);
+  background: transparent;
+}
+
+.temoignage-carousel-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+.temoignage-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(198, 155, 85, 0.4);
+  background: rgba(255, 248, 240, 0.92);
+  color: var(--brown);
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.temoignage-arrow:hover {
+  background: rgba(255, 248, 240, 1);
+  border-color: var(--gold);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.temoignage-arrow-prev { left: clamp(6px, 2vw, 24px); }
+.temoignage-arrow-next { right: clamp(6px, 2vw, 24px); }
+
+.temoignage-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: clamp(18px, 3vw, 28px);
+}
+
+.temoignage-dot {
+  height: 8px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(198, 155, 85, 0.28);
+  cursor: pointer;
+  transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), background 220ms ease;
+  width: 8px;
+  padding: 0;
+}
+
+.temoignage-dot.active {
+  width: 28px;
+  background: var(--gold);
+}
+
+/* ── End testimonials carousel ───────────────────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1719,9 +1806,12 @@ textarea:focus {
   grid-template-columns: minmax(260px, 1.2fr) minmax(220px, 0.8fr) minmax(240px, 0.9fr);
   gap: clamp(28px, 5vw, 72px);
   align-items: end;
-  margin: clamp(24px, 5vw, 70px) clamp(20px, 5vw, 76px) 0;
+  margin-top: clamp(24px, 5vw, 70px);
   border-top: 1px solid rgba(198, 155, 85, 0.24);
-  padding: clamp(36px, 6vw, 70px) 0 clamp(28px, 5vw, 54px);
+  padding: clamp(36px, 6vw, 70px) clamp(20px, 5vw, 76px) clamp(28px, 5vw, 54px);
+  background: rgba(255, 248, 240, 0.96);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 .footer-logo {

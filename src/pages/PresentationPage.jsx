@@ -146,6 +146,7 @@ function PresentationPage({ navigate }) {
   }, [prefersReducedMotion])
 
   return (
+    <>
     <motion.section
       ref={sectionRef}
       className="page hero-page"
@@ -367,6 +368,8 @@ function PresentationPage({ navigate }) {
         </div>
       </motion.section>
     </motion.section>
+
+    </>
   )
 }
 
