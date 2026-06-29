@@ -2120,23 +2120,34 @@ textarea:focus {
   .story-horizontal {
     height: auto;
     min-height: auto;
+    padding-bottom: 40px;
   }
 
   .story-viewport {
-    overflow: visible;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .story-viewport::-webkit-scrollbar {
+    display: none;
   }
 
   .story-track {
     height: auto;
-    width: auto;
-    flex-direction: column;
-    transform: none !important;
+    width: max-content;
+    flex-direction: row;
+    padding-bottom: 4px;
   }
 
   .story-panel {
-    width: 100%;
+    min-width: 84%;
+    width: 84%;
     height: auto;
-    min-height: 420px;
+    min-height: 480px;
+    scroll-snap-align: start;
     grid-template-columns: 1fr;
   }
 
@@ -2251,9 +2262,13 @@ textarea:focus {
   .story-horizontal {
     padding-top: 42px;
     padding-bottom: 42px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .story-panel {
+    min-width: 86%;
+    width: 86%;
     padding: 18px;
   }
 
