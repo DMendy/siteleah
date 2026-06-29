@@ -115,6 +115,7 @@ export function Scene() {
         <Flower position={[0.6, 5.2, -7]}  scale={1.3} color="#ead8c8" centerColor="#c69b55" rotOffset={1.8}  speed={0.38} />
 
         {/* Plumes */}
+        <Feather position={[0.6, -0.4, -2]}  scale={3.8} color="#c69b55" rotOffset={0.12} speed={0.22} />
         <Feather position={[-5.2, 1.8, -4]}  scale={1.1} color="#c8a882" rotOffset={-0.4} speed={0.36} />
         <Feather position={[2.2, -1.8, -5]}  scale={1.0} color="#d4b896" rotOffset={0.6}  speed={0.44} />
         <Feather position={[-1.8, 4.2, -6]}  scale={1.4} color="#bf9468" rotOffset={-1.2} speed={0.32} />

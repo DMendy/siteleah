@@ -17,6 +17,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -75,8 +85,11 @@ main {
   gap: 22px;
   min-height: 68px;
   padding: 7px clamp(18px, 5vw, 70px);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 248, 240, 0.96);
+  border-bottom: 1px solid rgba(198, 155, 85, 0.22);
+  box-shadow: 0 1px 0 rgba(198, 155, 85, 0.1), 0 4px 32px rgba(107, 74, 53, 0.06);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
 
 .brand,
@@ -204,13 +217,13 @@ main {
   gap: 8px;
   margin: 0 auto;
   padding: 10px;
-  border: 1px solid rgba(198, 155, 85, 0.28);
+  border: 1px solid rgba(198, 155, 85, 0.44);
   border-radius: 999px;
   overflow: hidden;
   background:
     linear-gradient(145deg, rgba(255, 253, 249, 0.98), rgba(248, 234, 219, 0.92)),
     var(--white);
-  box-shadow: 0 18px 44px rgba(107, 74, 53, 0.12);
+  animation: gold-ring-pulse 3.5s ease-in-out infinite;
   backdrop-filter: blur(18px);
 }
 
@@ -302,9 +315,9 @@ p {
 h1,
 h2 {
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-weight: 500;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
 
 h1 {
@@ -328,7 +341,7 @@ h1 {
 }
 
 .hero-logo-title img {
-  width: clamp(240px, 33vw, 420px);
+  width: clamp(130px, 28vw, 420px);
   height: auto;
   mix-blend-mode: multiply;
 }
@@ -353,7 +366,10 @@ h2 {
 h3 {
   margin-bottom: 10px;
   color: var(--brown);
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 23px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
 }
 
 .hero-copy,
@@ -402,7 +418,7 @@ h3 {
 .hero-proof-row strong {
   margin-bottom: 8px;
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 24px;
   font-weight: 500;
 }
@@ -509,7 +525,7 @@ h3 {
   flex-direction: column;
   justify-content: flex-end;
   border: 1px solid rgba(198, 155, 85, 0.38);
-  border-radius: 8px;
+  border-radius: 48px 16px 48px 16px;
   padding: 28px;
   background:
     linear-gradient(180deg, rgba(255, 253, 249, 0.18), rgba(107, 74, 53, 0.24)),
@@ -523,7 +539,7 @@ h3 {
   inset: 18px;
   z-index: 2;
   border: 1px solid rgba(255, 253, 249, 0.62);
-  border-radius: 6px;
+  border-radius: 36px 8px 36px 8px;
   content: "";
 }
 
@@ -558,7 +574,7 @@ h3 {
 .portrait-mark {
   margin-bottom: auto;
   color: rgba(198, 155, 85, 0.82);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(76px, 10vw, 140px);
   line-height: 1;
 }
@@ -626,7 +642,7 @@ h3 {
   display: block;
   margin-top: 5px;
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 25px;
   font-weight: 500;
   line-height: 0.95;
@@ -649,21 +665,46 @@ h3 {
 .contact-form,
 .page-cta,
 .premium-panel {
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1px solid rgba(198, 155, 85, 0.26);
   background: rgba(255, 253, 249, 0.82);
   box-shadow: 0 18px 38px rgba(107, 74, 53, 0.07);
   backdrop-filter: blur(10px);
   transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    border-radius 480ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.journey-card:hover,
-.service-card:hover,
-.proof-card:hover {
+/* Journey cards — coins asymétriques qui basculent au hover */
+.journey-card {
+  border-radius: 32px 8px 32px 8px;
+}
+.journey-card:hover {
+  border-radius: 8px 32px 8px 32px;
   border-color: rgba(198, 155, 85, 0.56);
   box-shadow: 0 28px 60px rgba(107, 74, 53, 0.14);
+}
+
+/* Service cards — légère inclinaison qui s'inverse au hover */
+.service-card {
+  border-radius: 28px 8px 28px 8px;
+  transform: rotate(-0.4deg);
+}
+.service-card:hover {
+  border-radius: 8px 28px 8px 28px;
+  transform: rotate(0.4deg);
+  border-color: rgba(198, 155, 85, 0.56);
+  box-shadow: 0 28px 60px rgba(107, 74, 53, 0.14);
+}
+
+.contact-form,
+.page-cta {
+  border-radius: 36px;
+}
+
+.premium-panel {
+  border-radius: 32px;
 }
 
 .premium-panel {
@@ -673,7 +714,7 @@ h3 {
 .premium-panel h3 {
   max-width: 520px;
   margin-bottom: 22px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(28px, 4vw, 46px);
   font-weight: 500;
   line-height: 1;
@@ -902,7 +943,7 @@ h3 {
   max-width: 260px;
   margin: 8px 0 24px;
   color: #fffdf9;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(44px, 7vw, 74px);
   font-weight: 500;
   line-height: 0.88;
@@ -959,6 +1000,11 @@ h3 {
   bottom: 16%;
   left: 4%;
   transform: rotate(5deg);
+}
+
+@keyframes gold-ring-pulse {
+  0%, 100% { box-shadow: 0 18px 44px rgba(107, 74, 53, 0.12), 0 0 0 3px rgba(198, 155, 85, 0.08); }
+  50%        { box-shadow: 0 18px 44px rgba(107, 74, 53, 0.12), 0 0 0 5px rgba(198, 155, 85, 0.18); }
 }
 
 @keyframes planner-light {
@@ -1090,7 +1136,7 @@ h3 {
   max-width: 360px;
   margin-top: auto;
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(30px, 4vw, 48px);
   font-weight: 500;
   line-height: 0.98;
@@ -1160,7 +1206,7 @@ h3 {
 
 .story-copy h3 {
   max-width: 420px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(30px, 3vw, 44px);
   font-weight: 500;
   line-height: 0.94;
@@ -1251,9 +1297,13 @@ h3 {
   position: relative;
   min-height: 360px;
   align-self: stretch;
-  border-radius: 7px;
+  border-radius: 40px 12px 40px 12px;
   overflow: hidden;
   background: var(--rose-soft);
+  transition: border-radius 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.services-panel:hover .services-portrait {
+  border-radius: 12px 40px 12px 40px;
 }
 
 .services-portrait::after {
@@ -1281,6 +1331,9 @@ h3 {
   justify-content: space-between;
   margin-top: clamp(8px, 2vw, 18px);
   padding: clamp(28px, 4vw, 40px);
+  background: linear-gradient(135deg, rgba(255, 253, 249, 0.9), rgba(248, 234, 210, 0.86));
+  border-color: rgba(198, 155, 85, 0.4);
+  box-shadow: 0 18px 38px rgba(107, 74, 53, 0.09), inset 0 0 0 1px rgba(198, 155, 85, 0.12);
 }
 
 .page-cta p {
@@ -1309,7 +1362,7 @@ h3 {
 .raw-testimonials-heading h3 {
   margin-bottom: 0;
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(34px, 5vw, 58px);
   font-weight: 500;
   line-height: 1;
@@ -1349,8 +1402,34 @@ h3 {
 }
 
 .proof-card {
+  position: relative;
   min-height: 240px;
   padding: clamp(28px, 4vw, 38px);
+  overflow: hidden;
+  border-radius: 36px 10px 36px 10px;
+}
+.proof-card:hover {
+  border-radius: 10px 36px 10px 36px;
+  border-color: rgba(198, 155, 85, 0.56);
+  box-shadow: 0 28px 60px rgba(107, 74, 53, 0.14);
+}
+
+.proof-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(198, 155, 85, 0.3) 100%);
+  border-radius: 999px 999px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.proof-card:hover::before {
+  transform: scaleX(1);
 }
 
 .change-panel {
@@ -1367,7 +1446,7 @@ h3 {
   gap: clamp(30px, 4vw, 48px);
   align-items: start;
   margin-bottom: clamp(42px, 6vw, 72px);
-  border-radius: 8px;
+  border-radius: 48px 14px 48px 14px;
   padding: clamp(34px, 5vw, 64px);
   overflow: hidden;
   background: #142a40;
@@ -1386,7 +1465,7 @@ h3 {
   max-width: 760px;
   margin-bottom: 16px;
   color: #fffdf9;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(36px, 5vw, 64px);
   font-weight: 500;
   line-height: 0.98;
@@ -1410,10 +1489,15 @@ h3 {
   min-width: 0;
   margin: 0;
   border: 1px solid rgba(205, 177, 135, 0.38);
-  border-radius: 8px;
+  border-radius: 28px 8px 28px 8px;
   overflow: hidden;
   background: rgba(255, 253, 249, 0.84);
   box-shadow: 0 24px 54px rgba(4, 13, 23, 0.22);
+  transition: border-radius 480ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 280ms ease;
+}
+.evidence-card:hover {
+  border-radius: 8px 28px 8px 28px;
+  box-shadow: 0 32px 70px rgba(4, 13, 23, 0.28);
 }
 
 .evidence-image {
@@ -1451,6 +1535,32 @@ h3 {
   text-transform: uppercase;
 }
 
+.testimonial-img {
+  position: relative;
+  padding: 0;
+  height: clamp(280px, 22vw, 380px);
+}
+
+.testimonial-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 10%;
+}
+
+.testimonial-img::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 2;
+  backdrop-filter: blur(28px) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) brightness(1.05);
+  pointer-events: none;
+}
+
 .change-panel h3 {
   margin-bottom: 0;
 }
@@ -1459,7 +1569,7 @@ h3 {
   display: block;
   margin-bottom: 34px;
   color: var(--brown);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(42px, 6vw, 78px);
   font-weight: 500;
   line-height: 0.9;
@@ -1468,14 +1578,16 @@ h3 {
 blockquote {
   min-height: 260px;
   margin: 0;
+  border: 1px solid rgba(198, 155, 85, 0.38);
   border-left: 4px solid var(--gold);
-  border-radius: 8px;
+  border-radius: 32px 8px 32px 8px;
   padding: clamp(28px, 4vw, 38px);
   color: var(--brown);
   background: rgba(255, 253, 249, 0.86);
   box-shadow: 0 18px 38px rgba(107, 74, 53, 0.08);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(24px, 3vw, 34px);
+  font-style: italic;
   line-height: 1.15;
 }
 
@@ -1546,7 +1658,7 @@ textarea:focus {
 
 .contact-success h3 {
   margin-bottom: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(26px, 3.5vw, 42px);
   font-weight: 500;
   line-height: 1.1;

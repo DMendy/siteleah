@@ -60,6 +60,7 @@ function App() {
     if (page) {
       navigate(page.path)
       setMenuOpen(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 

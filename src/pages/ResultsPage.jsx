@@ -118,7 +118,7 @@ function ResultsPage({ navigate }) {
               variants={revealItem}
               whileHover={cardHover}
             >
-              <div className="evidence-image">
+              <div className="evidence-image testimonial-img">
                 <img src={testimonial.image} alt={testimonial.label} loading="lazy" />
               </div>
               <figcaption>{testimonial.label}</figcaption>
