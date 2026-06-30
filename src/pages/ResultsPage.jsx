@@ -3,53 +3,57 @@ import { cardHover, revealContainer, revealItem } from '../animations'
 import { SplitHeading } from '../components/SplitHeading'
 import { TestimonialCarousel } from '../components/TestimonialCarousel'
 
-const changes = [
-  "Je rassemble tes demandes pour qu'elles ne se perdent plus entre plusieurs canaux.",
-  'Je pose et je suis les relances importantes.',
-  'Je rends tes priorités visibles avant que la semaine commence.',
-  "Je protège ton énergie pour les décisions importantes.",
+const stats = [
+  { value: '30+', label: 'dossiers clients organisés', sub: 'CRM structuré de zéro' },
+  { value: '5',      label: 'outils pris en main',        sub: 'sans formation préalable' },
+  { value: 'A → Z', label: 'un seul process',             sub: 'infiniment adaptable' },
+  { value: '100 %', label: 'relances suivies',             sub: 'aucun oubli, aucun retard' },
 ]
 
 const evidence = [
   {
     src: '/resultat-tickets-semaine.png',
-    alt: 'Exemple de suivi de tickets traités sur une semaine',
+    alt: 'Suivi de tickets traités sur une semaine',
     label: 'Suivi hebdomadaire',
+    desc: 'Volume traité chaque semaine — aucune demande ne passe entre les mailles.',
     crop: 'tickets',
   },
   {
     src: '/resultat-satisfaction-positive.png',
     alt: 'Indicateur de satisfaction et remarques positives',
     label: 'Satisfaction mesurée',
+    desc: 'Les retours positifs sont documentés et suivis pour maintenir le niveau.',
   },
   {
     src: '/resultat-qualite-redactionnelle.png',
     alt: 'Évaluation de la qualité rédactionnelle des réponses',
     label: 'Qualité rédactionnelle',
+    desc: 'Chaque réponse client est soignée — ton image de marque est préservée.',
   },
   {
     src: '/resultat-relation-client.png',
     alt: 'Évaluation de la qualité de relation client',
     label: 'Relation client',
+    desc: 'Suivi de la qualité de la relation client sur la durée de la mission.',
   },
 ]
 
-const testimonials = [
+const changes = [
   {
-    image: '/temoignage-equipe-suivi-01.png',
-    label: "Suivi d'équipe",
+    before: 'Des demandes dispersées entre mails, messages et notes.',
+    after: "Un canal unique, centralisé — rien ne se perd.",
   },
   {
-    image: '/temoignage-equipe-suivi-02.png',
-    label: "Coordination d'équipe",
+    before: 'Des relances oubliées, des dossiers sans suite.',
+    after: 'Je suis chaque relance avec méthode jusqu\'à la résolution.',
   },
   {
-    image: '/temoignage-collaboration-client.png',
-    label: 'Retour de collaboration',
+    before: 'Une semaine qui démarre sans priorités claires.',
+    after: 'Tes actions de la semaine sont visibles avant le lundi matin.',
   },
   {
-    image: '/temoignage-coordination-client.png',
-    label: 'Retour de coordination',
+    before: 'Une énergie mentale dépensée sur des tâches opérationnelles.',
+    after: 'Tu récupères ta bande passante pour les décisions importantes.',
   },
 ]
 
@@ -61,15 +65,32 @@ function ResultsPage({ navigate }) {
       initial="hidden"
       animate="show"
     >
-      <motion.div className="section-heading" variants={revealContainer}>
-        <motion.p className="eyebrow" variants={revealItem}>
-          Résultats concrets
+      {/* ── Hero ── */}
+      <motion.div className="proof-hero" variants={revealContainer}>
+        <motion.p className="eyebrow" variants={revealItem}>Résultats concrets</motion.p>
+        <SplitHeading baseDelay={0.08}>
+          Je rends les résultats visibles — pas juste les tâches faites.
+        </SplitHeading>
+        <motion.p className="proof-hero-sub" variants={revealItem}>
+          Chaque mission laisse une trace mesurable. Voici ce que ça donne
+          concrètement quand j&apos;interviens dans ton organisation.
         </motion.p>
-        <SplitHeading baseDelay={0.08}>Je rends les résultats visibles en faisant de l'organisation un vrai levier business.</SplitHeading>
       </motion.div>
 
-      <motion.section className="evidence-section" variants={revealContainer}>
-        <motion.div className="evidence-heading" variants={revealItem}>
+      {/* ── Stats ── */}
+      <motion.div className="proof-stats" variants={revealContainer}>
+        {stats.map((s) => (
+          <motion.div key={s.value} className="proof-stat" variants={revealItem}>
+            <span className="proof-stat-value">{s.value}</span>
+            <strong className="proof-stat-label">{s.label}</strong>
+            <span className="proof-stat-sub">{s.sub}</span>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* ── Evidence ── */}
+      <motion.div className="proof-evidence" variants={revealContainer}>
+        <motion.div className="proof-evidence-heading" variants={revealItem}>
           <p className="eyebrow">Preuves concrètes</p>
           <h3>Mes standards se mesurent sur le terrain.</h3>
           <p>
@@ -77,48 +98,66 @@ function ResultsPage({ navigate }) {
             satisfaction, qualité rédactionnelle et relation client.
           </p>
         </motion.div>
-        <div className="evidence-grid">
-          {evidence.map((item) => (
+        <div className="proof-ev-grid">
+          {evidence.map((item, i) => (
             <motion.figure
-              className="evidence-card"
+              className="proof-ev-card"
               key={item.src}
               variants={revealItem}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -6 }}
             >
-              <div className={`evidence-image${item.crop ? ` evidence-image-${item.crop}` : ''}`}>
+              <div className={`proof-ev-photo${item.crop ? ` proof-ev-photo--${item.crop}` : ''}`}>
+                <span className="proof-ev-badge">{String(i + 1).padStart(2, '0')}</span>
                 <img src={item.src} alt={item.alt} loading="lazy" />
               </div>
-              <figcaption>{item.label}</figcaption>
+              <figcaption>
+                <strong>{item.label}</strong>
+                <span>{item.desc}</span>
+              </figcaption>
             </motion.figure>
           ))}
         </div>
-      </motion.section>
+      </motion.div>
 
-      <motion.section className="premium-panel change-panel" variants={revealItem}>
-        <div>
-          <p className="eyebrow">Concrètement</p>
-          <h3>Ce que je change quand je reprends ton back-office.</h3>
-        </div>
-        <ul>
-          {changes.map((change) => (
-            <li key={change}>{change}</li>
+      {/* ── Avant / Après ── */}
+      <motion.div className="proof-changes" variants={revealContainer}>
+        <motion.div className="proof-changes-heading" variants={revealItem}>
+          <p className="eyebrow">Avant · Après</p>
+          <h3>Ce que je transforme concrètement.</h3>
+        </motion.div>
+        <div className="proof-changes-list">
+          {changes.map((c, i) => (
+            <motion.div key={i} className="proof-change-row" variants={revealItem}>
+              <div className="proof-change-before">
+                <span className="proof-change-tag proof-change-tag--before">Avant</span>
+                <p>{c.before}</p>
+              </div>
+              <div className="proof-change-arrow" aria-hidden="true">→</div>
+              <div className="proof-change-after">
+                <span className="proof-change-tag proof-change-tag--after">Après</span>
+                <p>{c.after}</p>
+              </div>
+            </motion.div>
           ))}
-        </ul>
-      </motion.section>
+        </div>
+      </motion.div>
 
+      {/* ── Testimonials ── */}
       <TestimonialCarousel />
 
-      <motion.button
-        className="button button-primary"
-        type="button"
-        onClick={() => navigate('candidature')}
-        variants={revealItem}
-        whileHover={{ y: -3 }}
-        whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
-        style={{ marginTop: 'clamp(32px, 5vw, 56px)' }}
-      >
-        Je veux déléguer avec méthode
-      </motion.button>
+      {/* ── CTA ── */}
+      <motion.div className="page-cta" variants={revealItem}>
+        <p>Prêt·e à récupérer ton temps et ta sérénité ?</p>
+        <motion.button
+          className="button button-primary"
+          type="button"
+          onClick={() => navigate('candidature')}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
+        >
+          Je veux déléguer avec méthode
+        </motion.button>
+      </motion.div>
     </motion.section>
   )
 }
