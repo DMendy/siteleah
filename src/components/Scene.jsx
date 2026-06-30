@@ -94,7 +94,7 @@ function Dust({ count = 110 }) {
 
   return (
     <points ref={ref} geometry={geo}>
-      <pointsMaterial size={0.026} color="#c8a870" transparent opacity={0.26} sizeAttenuation depthWrite={false} />
+      <pointsMaterial size={0.026} color="#7ED9D6" transparent opacity={0.22} sizeAttenuation depthWrite={false} />
     </points>
   )
 }
@@ -105,21 +105,21 @@ export function Scene() {
       <Canvas dpr={[1, 1.2]} camera={{ position: [0, 0, 9], fov: 50 }} gl={{ antialias: false, alpha: true }}>
         <CameraRig />
         <ambientLight intensity={1.4} />
-        <directionalLight position={[4, 6, 4]} intensity={0.5} color="#fff8f0" />
+        <directionalLight position={[4, 6, 4]} intensity={0.5} color="#e6fbfa" />
 
         {/* Fleurs */}
-        <Flower position={[3.8, 2.6, -4]}  scale={1.5} color="#f4d7cf" centerColor="#c69b55" rotOffset={0.3}  speed={0.45} />
-        <Flower position={[-4.2, 3.2, -6]} scale={1.1} color="#ead8c8" centerColor="#b8885a" petalCount={6} rotOffset={1.1} speed={0.35} />
-        <Flower position={[4.6, -2.8, -3]} scale={0.9} color="#ecd8c4" centerColor="#c69b55" rotOffset={2.2}  speed={0.58} />
-        <Flower position={[-2.2, -4, -5]}  scale={1.2} color="#f0ddd2" centerColor="#a07040" petalCount={6} rotOffset={0.7} speed={0.42} />
-        <Flower position={[0.6, 5.2, -7]}  scale={1.3} color="#ead8c8" centerColor="#c69b55" rotOffset={1.8}  speed={0.38} />
+        <Flower position={[3.8, 2.6, -4]}  scale={1.5} color="#b8e8e4" centerColor="#007F7F" rotOffset={0.3}  speed={0.45} />
+        <Flower position={[-4.2, 3.2, -6]} scale={1.1} color="#7ED9D6" centerColor="#005f5f" petalCount={6} rotOffset={1.1} speed={0.35} />
+        <Flower position={[4.6, -2.8, -3]} scale={0.9} color="#a8dedd" centerColor="#007F7F" rotOffset={2.2}  speed={0.58} />
+        <Flower position={[-2.2, -4, -5]}  scale={1.2} color="#c2ece9" centerColor="#00A8A8" petalCount={6} rotOffset={0.7} speed={0.42} />
+        <Flower position={[0.6, 5.2, -7]}  scale={1.3} color="#7ED9D6" centerColor="#007F7F" rotOffset={1.8}  speed={0.38} />
 
         {/* Plumes */}
-        <Feather position={[0.6, -0.4, -2]}  scale={3.8} color="#c69b55" rotOffset={0.12} speed={0.22} />
-        <Feather position={[-5.2, 1.8, -4]}  scale={1.1} color="#c8a882" rotOffset={-0.4} speed={0.36} />
-        <Feather position={[2.2, -1.8, -5]}  scale={1.0} color="#d4b896" rotOffset={0.6}  speed={0.44} />
-        <Feather position={[-1.8, 4.2, -6]}  scale={1.4} color="#bf9468" rotOffset={-1.2} speed={0.32} />
-        <Feather position={[5.2, 0.2, -5]}   scale={0.85} color="#d0aa7e" rotOffset={1.4}  speed={0.5}  />
+        <Feather position={[0.6, -0.4, -2]}  scale={3.8} color="#007F7F" rotOffset={0.12} speed={0.22} />
+        <Feather position={[-5.2, 1.8, -4]}  scale={1.1} color="#1A7F8C" rotOffset={-0.4} speed={0.36} />
+        <Feather position={[2.2, -1.8, -5]}  scale={1.0} color="#5FB3BD" rotOffset={0.6}  speed={0.44} />
+        <Feather position={[-1.8, 4.2, -6]}  scale={1.4} color="#00A8A8" rotOffset={-1.2} speed={0.32} />
+        <Feather position={[5.2, 0.2, -5]}   scale={0.85} color="#1A7F8C" rotOffset={1.4}  speed={0.5}  />
 
         <Dust count={110} />
       </Canvas>

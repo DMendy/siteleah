@@ -2,26 +2,36 @@ import { motion } from 'motion/react'
 import { revealContainer, revealItem } from '../animations'
 import { SplitHeading } from '../components/SplitHeading'
 
-const process = [
+const azSteps = [
   {
     num: '01',
-    title: 'Écoute',
-    text: "Je prends le temps de comprendre ton activité, tes outils, ta façon de fonctionner et ce qui te prend vraiment du temps.",
+    title: 'Premier contact',
+    text: "Formulaire du site, LinkedIn, mail ou Instagram — tu choisis le canal qui te convient.",
   },
   {
     num: '02',
-    title: 'Cartographie',
-    text: "Je repère ce qui peut être délégué, ce qui mérite un système et ce qui t'échappe sans que tu t'en rendes compte.",
+    title: 'Échange & découverte',
+    text: "Un appel ou une Visio pour comprendre ton fonctionnement, tes besoins et tes priorités. Pas de solution toute faite — je pars de ta réalité.",
   },
   {
     num: '03',
-    title: 'Déploiement',
-    text: "Je mets en place les routines, les suivis et les process adaptés à ton secteur, tes clients et ta réalité terrain.",
+    title: 'Proposition sur mesure',
+    text: "Je te propose un accompagnement adapté : SAV, planning, prise d'appels, gestion mails... Le contrat est défini ensemble selon tes besoins réels.",
   },
   {
     num: '04',
-    title: 'Suivi continu',
-    text: "Je reste disponible, j'ajuste au fil du temps et je maintiens ton organisation fluide sans que tu aies à t'en préoccuper.",
+    title: 'Début de collaboration',
+    text: "Je prends en charge les missions avec méthode et confidentialité. Je m'adapte à tes outils — si je dois me former, ce sera fait avec plaisir.",
+  },
+  {
+    num: '05',
+    title: 'Suivi régulier',
+    text: "Disponible à tout moment sur la plateforme qui te convient. Je suis les missions, j'ajuste en continu et reste réactive.",
+  },
+  {
+    num: '06',
+    title: 'Collaboration durable',
+    text: "Mon objectif : devenir un partenaire de confiance sur lequel tu peux compter au quotidien, sur le long terme.",
   },
 ]
 
@@ -45,9 +55,66 @@ const sectors = [
 ]
 
 const what = [
-  { label: 'Admin', items: ['Dossiers clients', 'Factures & relances', 'Boîte mail', 'Documents légaux'] },
-  { label: 'Business', items: ['Priorités hebdo', 'Suivi projets', 'CRM & contacts', 'Comptes-rendus'] },
-  { label: 'Ops', items: ['Routines & process', 'Outils & automatisations', 'Coordination prestataires', 'Reporting'] },
+  {
+    label: 'Administratif',
+    items: ['Gestion de mails', 'Relances clients', 'Factures & documents', 'Dossiers & archivage', 'Documents légaux'],
+  },
+  {
+    label: 'Relation client',
+    items: ["SAV externalisé", "Prise d'appels", 'Suivi client', 'CRM & contacts', 'Chat & messagerie'],
+  },
+  {
+    label: 'Organisation',
+    items: ['Planning & agenda', 'Réunions & voyages', 'Coordination équipe', 'Comptes-rendus', 'Reporting'],
+  },
+]
+
+const caseWalkthrough = [
+  {
+    num: '01',
+    tool: 'CRM',
+    title: "J'ai structuré 2 000 dossiers clients.",
+    text: "Aucun outil en place à mon arrivée. J'ai créé la structure, importé les contacts, classé les statuts et mis en place les relances automatiques.",
+    adapt: "Applicable à : CRM médical, e-commerce, agence, immobilier — même méthode, outil adapté.",
+    src: '/leah-client-crm.jpg',
+    alt: 'CRM organisé avec 2 000 dossiers traités',
+  },
+  {
+    num: '02',
+    tool: 'Agenda',
+    title: "J'ai synchronisé les plannings de toute l'équipe.",
+    text: "Conflits, doublons, réunions sans ordre du jour — j'ai remis de l'ordre dans les agendas partagés et posé un système de validation des RDV.",
+    adapt: "Applicable à : cabinet médical, studio, équipe terrain, prestataire solo — tout ce qui a un calendrier.",
+    src: '/leah-client-agenda.jpg',
+    alt: 'Planning équipe synchronisé et structuré',
+  },
+  {
+    num: '03',
+    tool: 'Communication',
+    title: "J'ai coordonné les échanges internes.",
+    text: "Canaux désorganisés, messages perdus, responsabilités floues. J'ai structuré les espaces de travail, centralisé les demandes et réduit les aller-retours inutiles.",
+    adapt: "Applicable à : Slack, Notion, WhatsApp pro, email — je m'adapte à l'outil en place ou j'en propose un.",
+    src: '/leah-client-teams.jpg',
+    alt: 'Coordination équipe et communication interne',
+  },
+  {
+    num: '04',
+    tool: 'Email',
+    title: "J'ai repris le contrôle de la boîte mail.",
+    text: "Boîte saturée, mails sans réponse, relances oubliées. J'ai trié, filtré, répondu et mis en place un suivi quotidien des demandes entrantes.",
+    adapt: "Applicable à : quel que soit le volume ou le secteur — une boîte structurée change tout.",
+    src: '/leah-client-email.jpg',
+    alt: 'Gestion de boîte email et suivi quotidien',
+  },
+  {
+    num: '05',
+    tool: 'Onboarding',
+    title: "J'ai géré l'intégration de nouveaux collaborateurs.",
+    text: "Accès aux outils, supports de formation, suivi des premières semaines — j'ai construit le parcours d'intégration de A à Z.",
+    adapt: "Applicable à : PME, indépendant qui recrute, cabinet qui grandit — tout démarrage mérite un process.",
+    src: '/leah-client-formations.jpg',
+    alt: 'Onboarding et formations internes',
+  },
 ]
 
 function ServicesPage({ navigate }) {
@@ -69,19 +136,25 @@ function ServicesPage({ navigate }) {
         </motion.p>
       </motion.div>
 
-      {/* ── Process steps ── */}
-      <motion.div className="srv-process" variants={revealContainer}>
-        {process.map((step) => (
-          <motion.article
-            key={step.num}
-            className="srv-step"
-            variants={revealItem}
-          >
-            <span className="srv-step-num">{step.num}</span>
-            <h3 className="srv-step-title">{step.title}</h3>
-            <p className="srv-step-text">{step.text}</p>
-          </motion.article>
-        ))}
+      {/* ── Process A à Z ── */}
+      <motion.div className="srv-az" variants={revealContainer}>
+        <motion.div className="srv-az-heading" variants={revealItem}>
+          <p className="eyebrow">Accompagnement de A à Z</p>
+          <h3>De ton premier message à une collaboration qui dure.</h3>
+        </motion.div>
+        <div className="srv-az-grid">
+          {azSteps.map((step) => (
+            <motion.article
+              key={step.num}
+              className="srv-step"
+              variants={revealItem}
+            >
+              <span className="srv-step-num">{step.num}</span>
+              <h3 className="srv-step-title">{step.title}</h3>
+              <p className="srv-step-text">{step.text}</p>
+            </motion.article>
+          ))}
+        </div>
       </motion.div>
 
       {/* ── Sectors marquee ── */}
@@ -96,7 +169,7 @@ function ServicesPage({ navigate }) {
         </div>
       </motion.div>
 
-      {/* ── What I handle ── */}
+      {/* ── Ce que je prends en charge ── */}
       <motion.div className="srv-what" variants={revealContainer}>
         <motion.div className="srv-what-heading" variants={revealItem}>
           <p className="eyebrow">Ce que je prends en charge</p>
@@ -116,37 +189,41 @@ function ServicesPage({ navigate }) {
         </div>
       </motion.div>
 
-      {/* ── Case study placeholder ── */}
-      <motion.div className="srv-case" variants={revealItem}>
-        <div className="srv-case-badge">
-          <span className="srv-case-dot" />
-          Étude de cas · en cours de rédaction
-        </div>
-        <div className="srv-case-content">
-          <div className="srv-case-left">
-            <p className="eyebrow">Exemple client</p>
-            <h3>Le même process, appliqué à un vrai secteur.</h3>
-            <p>
-              Leah accompagne actuellement un client dont elle va documenter
-              le suivi complet — de l'audit initial jusqu'aux résultats mesurés.
-              Cette section sera mise à jour dès que l'étude de cas est prête.
+      {/* ── Étude de cas ── */}
+      <motion.div className="srv-case-section" variants={revealContainer}>
+        <motion.div className="srv-case-header" variants={revealItem}>
+          <span className="srv-case-dot" aria-hidden="true" />
+          <div>
+            <p className="eyebrow">Étude de cas · Mission relation client</p>
+            <h3>Le même process, appliqué à une vraie équipe.</h3>
+            <p className="srv-case-intro">
+              5 chantiers menés de front sur une mission réelle. À chaque fois : un outil
+              différent, un contexte différent — et le même résultat.
             </p>
-            <div className="srv-case-steps">
-              {['Audit initial', 'Mise en place', 'Résultats mesurés'].map((s, i) => (
-                <div key={s} className="srv-case-step">
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  <p>{s}</p>
-                </div>
-              ))}
-            </div>
           </div>
-          <div className="srv-case-right">
-            <img
-              src="/lea-travail-bureau.jpg"
-              alt="Lea Jha au travail"
-              loading="lazy"
-            />
-          </div>
+        </motion.div>
+
+        <div className="srv-case-walkthrough">
+          {caseWalkthrough.map((step, i) => (
+            <motion.article
+              key={step.num}
+              className={`srv-cw-item${i % 2 !== 0 ? ' srv-cw-item--reverse' : ''}`}
+              variants={revealItem}
+            >
+              <div className="srv-cw-photo">
+                <img src={step.src} alt={step.alt} loading="lazy" />
+                <span className="srv-cw-tool-badge">{step.tool}</span>
+              </div>
+              <div className="srv-cw-body">
+                <span className="srv-cw-num">{step.num}</span>
+                <h4 className="srv-cw-title">{step.title}</h4>
+                <p className="srv-cw-text">{step.text}</p>
+                <p className="srv-cw-adapt">
+                  <span aria-hidden="true">→</span> {step.adapt}
+                </p>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </motion.div>
 

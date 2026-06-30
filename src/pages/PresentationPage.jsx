@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { cardHover, heroTitle, revealContainer, revealItem } from '../animations'
 import { SplitHeading } from '../components/SplitHeading'
 
@@ -11,24 +11,6 @@ const journey = [
   "Je prends en charge l'administratif, l'organisation et le suivi opérationnel dans un cadre fiable.",
   'Je structure tes priorités business pour te libérer du temps et de la charge mentale.',
   "Je t'accompagne vers une activité plus claire, plus fluide et mieux maîtrisée.",
-]
-
-const operations = [
-  {
-    eyebrow: '01',
-    title: 'Admin propre',
-    text: 'Je garde tes documents, relances, informations et dossiers lisibles, rangés et faciles à retrouver.',
-  },
-  {
-    eyebrow: '02',
-    title: 'Business suivi',
-    text: 'Je centralise les demandes, les priorités et les prochaines actions pour éviter les pertes de temps.',
-  },
-  {
-    eyebrow: '03',
-    title: 'Exécution fluide',
-    text: "Je fais avancer ton quotidien avec des routines simples, un suivi clair et moins de charge mentale.",
-  },
 ]
 
 const storyPanels = [
@@ -59,39 +41,10 @@ const storyPanels = [
 ]
 
 function PresentationPage({ navigate }) {
-  const sectionRef = useRef(null)
-  const operationsRef = useRef(null)
   const storySectionRef = useRef(null)
   const storyViewportRef = useRef(null)
   const storyTrackRef = useRef(null)
   const prefersReducedMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-  const { scrollYProgress: operationsProgress } = useScroll({
-    target: operationsRef,
-    offset: ['start 75%', 'end 25%'],
-  })
-  const portraitY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 72])
-  const auraScale = useTransform(scrollYProgress, [0, 1], [1, prefersReducedMotion ? 1 : 1.18])
-  const signatureY = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -44])
-  const plannerRotate = useTransform(operationsProgress, [0, 0.5, 1], [-7, 0, 6])
-  const plannerScale = useTransform(operationsProgress, [0, 0.45, 1], [0.92, 1.05, 0.98])
-  const plannerY = useTransform(operationsProgress, [0, 1], [prefersReducedMotion ? 0 : 28, prefersReducedMotion ? 0 : -34])
-  const pageSpread = useTransform(operationsProgress, [0.1, 0.52, 1], [0, 22, 48])
-  const pageSpreadSoft = useTransform(pageSpread, (value) => value * 0.56)
-  const cardOneY = useTransform(operationsProgress, [0, 0.24, 1], [prefersReducedMotion ? 0 : 48, 0, prefersReducedMotion ? 0 : -18])
-  const cardTwoY = useTransform(operationsProgress, [0.16, 0.5, 1], [prefersReducedMotion ? 0 : 58, 0, prefersReducedMotion ? 0 : -10])
-  const cardThreeY = useTransform(operationsProgress, [0.34, 0.76, 1], [prefersReducedMotion ? 0 : 66, 0, prefersReducedMotion ? 0 : 8])
-  const cardOneOpacity = useTransform(operationsProgress, [0, 0.2], [0.34, 1])
-  const cardTwoOpacity = useTransform(operationsProgress, [0.18, 0.42], [0.34, 1])
-  const cardThreeOpacity = useTransform(operationsProgress, [0.36, 0.66], [0.34, 1])
-  const operationCardStyles = [
-    { y: cardOneY, opacity: cardOneOpacity },
-    { y: cardTwoY, opacity: cardTwoOpacity },
-    { y: cardThreeY, opacity: cardThreeOpacity },
-  ]
 
   useEffect(() => {
     if (prefersReducedMotion) return undefined
@@ -139,7 +92,13 @@ function PresentationPage({ navigate }) {
         )
       }, section)
 
-      return () => ctx.revert()
+      // Délai suffisant pour que le layout flex soit stable
+      const timer = setTimeout(() => ScrollTrigger.refresh(true), 200)
+
+      return () => {
+        clearTimeout(timer)
+        ctx.revert()
+      }
     })
 
     return () => media.revert()
@@ -148,117 +107,104 @@ function PresentationPage({ navigate }) {
   return (
     <>
     <motion.section
-      ref={sectionRef}
       className="page hero-page"
       variants={revealContainer}
       initial="hidden"
       animate="show"
     >
-      <motion.div
-        className="hero-aura hero-aura-one"
-        aria-hidden="true"
-        style={{ scale: auraScale }}
-      />
-      <motion.div
-        className="hero-aura hero-aura-two"
-        aria-hidden="true"
-        style={{ scale: auraScale }}
-      />
-
-      <motion.div className="hero-copy-block" variants={revealContainer}>
-        <motion.p className="eyebrow" variants={revealItem}>
-          Assistante business · administratif · organisation
-        </motion.p>
-        <motion.h1 className="hero-title hero-logo-title" variants={heroTitle}>
-          <img src="/logo-lea-jha.png" alt="Lea Jha" />
-        </motion.h1>
-        <motion.p className="hero-copy" variants={revealItem}>
-          J&apos;accompagne les entrepreneurs et dirigeants dans leur gestion
-          administrative, leur organisation business et leur suivi opérationnel
-          avec précision, calme et méthode.
-        </motion.p>
-        <motion.div className="hero-actions" variants={revealItem}>
-          <motion.button
-            className="button button-primary"
-            type="button"
-            onClick={() => navigate('services')}
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
-          >
-            Découvrir mes services
-          </motion.button>
-          <motion.button
-            className="button button-secondary"
-            type="button"
-            onClick={() => navigate('candidature')}
-            whileHover={{ y: -3 }}
-            whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
-          >
-            Me confier ton organisation
-          </motion.button>
-        </motion.div>
-
-        <motion.div className="hero-proof-row" variants={revealContainer}>
-          <motion.div variants={revealItem}>
-            <strong>Admin</strong>
-            <span>Suivi fiable et rigoureux</span>
+      {/* ── Hero split ── */}
+      <motion.div className="hero-split" variants={revealContainer} style={{ willChange: 'auto' }}>
+        <motion.div className="hero-copy-block" variants={revealContainer}>
+          <motion.p className="eyebrow" variants={revealItem}>
+            Assistante business · administratif · organisation
+          </motion.p>
+          <motion.h1 className="hero-title hero-logo-title" variants={heroTitle}>
+            <img src="/logo-lea-jha.png" alt="Lea Jha" />
+          </motion.h1>
+          <motion.p className="hero-copy" variants={revealItem}>
+            J&apos;accompagne les entrepreneurs et dirigeants dans leur gestion
+            administrative, leur organisation business et leur suivi opérationnel
+            avec précision, calme et méthode.
+          </motion.p>
+          <motion.div className="hero-actions" variants={revealItem}>
+            <motion.button
+              className="button button-primary"
+              type="button"
+              onClick={() => navigate('services')}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
+            >
+              Découvrir mes services
+            </motion.button>
+            <motion.button
+              className="button button-secondary"
+              type="button"
+              onClick={() => navigate('candidature')}
+              whileHover={{ y: -3 }}
+              whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
+            >
+              Me confier ton organisation
+            </motion.button>
           </motion.div>
-          <motion.div variants={revealItem}>
-            <strong>Business</strong>
-            <span>Priorités structurées</span>
-          </motion.div>
-          <motion.div variants={revealItem}>
-            <strong>Ops</strong>
-            <span>Exécution fluide au quotidien</span>
+
+          <motion.div className="hero-proof-row" variants={revealContainer}>
+            <motion.div variants={revealItem}>
+              <strong>Admin</strong>
+              <span>Suivi fiable et rigoureux</span>
+            </motion.div>
+            <motion.div variants={revealItem}>
+              <strong>Business</strong>
+              <span>Priorités structurées</span>
+            </motion.div>
+            <motion.div variants={revealItem}>
+              <strong>Ops</strong>
+              <span>Exécution fluide au quotidien</span>
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
 
-      <motion.div
-        className="portrait-stage"
-        aria-label="Résumé du parcours"
-        variants={revealItem}
-        style={{ y: portraitY }}
-      >
-        <motion.div className="portrait-orbit" aria-hidden="true" />
-        <motion.div
-          className="portrait-panel"
-          whileHover={{ rotate: -1, scale: 1.015 }}
-        >
-          <img
-            className="portrait-photo"
-            src="/lea-portrait-bureau.jpg"
-            alt="Lea Jha à son bureau"
-          />
-          <div className="portrait-content">
-            <div className="portrait-meta">
-              <span>Experte assistanat business</span>
-              <span>Administratif · opérations · suivi</span>
-            </div>
+        <motion.div className="hero-photo-col" variants={revealItem}>
+          {/* Photo pleine hauteur */}
+          <div className="hero-photo-inner">
+            <motion.img
+              src="/lea-portrait-bureau.jpg"
+              alt="Leah JHA à son bureau"
+              initial={{ scale: 1.06 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            />
           </div>
-        </motion.div>
-        <motion.div
-          className="hero-signature-card"
-          style={{ y: signatureY }}
-          initial={{ opacity: 0, x: 28, rotate: 4 }}
-          animate={{ opacity: 1, x: 0, rotate: -2 }}
-          transition={{ delay: 0.74, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span>Ma méthode</span>
-          <strong>ordre avant charge mentale</strong>
-        </motion.div>
-        <motion.div
-          className="hero-floating-note"
-          initial={{ opacity: 0, x: -26, rotate: -4 }}
-          animate={{ opacity: 1, x: 0, rotate: 2 }}
-          transition={{ delay: 0.92, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <strong>24h</strong>
-          <span>suivi réactif et structuré</span>
+          <div className="hero-photo-vignette" aria-hidden="true" />
+
+          {/* Carte-signature entrée en scène */}
+          <motion.div
+            className="hero-signature"
+            initial={{ opacity: 0, y: 32, rotate: -5 }}
+            animate={{ opacity: 1, y: 0, rotate: -2 }}
+            transition={{ delay: 0.72, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img
+              className="hero-sig-logo"
+              src="/logo-lea-jha.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <div className="hero-sig-info">
+              <strong>Leah JHA</strong>
+              <span>Assistante Business</span>
+            </div>
+          </motion.div>
         </motion.div>
       </motion.div>
 
-      <motion.div className="journey-list" variants={revealContainer}>
+      {/* ── Journey ── */}
+      <motion.div
+        className="journey-list"
+        variants={revealContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {journey.map((item) => (
           <motion.article
             className="journey-card"
@@ -271,103 +217,89 @@ function PresentationPage({ navigate }) {
           </motion.article>
         ))}
       </motion.div>
+    </motion.section>
 
-      <section className="story-horizontal" ref={storySectionRef}>
-        <div className="story-intro">
-          <p className="eyebrow">Mon processus</p>
-          <SplitHeading>Du chaos administratif au bureau qui respire.</SplitHeading>
-        </div>
+    {/* ── Story horizontal — hors du flex + overflow:hidden pour que GSAP pin fonctionne ── */}
+    <section className="story-horizontal" ref={storySectionRef}>
+      <div className="story-intro">
+        <p className="eyebrow">Mon processus</p>
+        <SplitHeading>Du chaos administratif au bureau qui respire.</SplitHeading>
+      </div>
 
-        <div className="story-viewport" ref={storyViewportRef}>
-          <div className="story-track" ref={storyTrackRef}>
-            {storyPanels.map((panel, index) => (
-              <article className="story-panel" key={panel.title}>
-                <div className={`story-image-frame story-image-${index + 1}`}>
-                  <span>{panel.label}</span>
-                  <div className="story-image-lines" aria-hidden="true">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                  </div>
-                </div>
-                <div className="story-copy">
-                  <span>{panel.kicker}</span>
-                  <h3>{panel.title}</h3>
-                  <p>{panel.text}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <motion.section
-        className="operations-showcase"
-        ref={operationsRef}
-        variants={revealContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.18 }}
-      >
-        <motion.div className="operations-heading" variants={revealItem}>
-          <p className="eyebrow">Système opérationnel</p>
-          <SplitHeading baseDelay={0.05}>Un centre de contrôle pour sortir l'administratif de ta tête.</SplitHeading>
-          <p>
-            Cet objet central représente mon bureau : chaque scroll ouvre une
-            couche de suivi, de priorisation et d&apos;exécution.
-          </p>
-        </motion.div>
-
-        <div className="operations-scroll-grid">
-          <div className="operations-cards">
-            {operations.map((operation, index) => (
-              <motion.article
-                className="operation-card"
-                key={operation.title}
-                variants={revealItem}
-                style={operationCardStyles[index]}
-                whileHover={cardHover}
-              >
-                <span>{operation.eyebrow}</span>
-                <h3>{operation.title}</h3>
-                <p>{operation.text}</p>
-              </motion.article>
-            ))}
-          </div>
-
-          <div className="planner-sticky" aria-label="Dossier business animé">
-            <motion.div
-              className="business-planner"
-              style={{ rotate: plannerRotate, scale: plannerScale, y: plannerY }}
-            >
-              <div className="planner-shadow" />
-              <motion.div
-                className="planner-sheet planner-sheet-back"
-                style={{ y: pageSpread }}
-              />
-              <motion.div
-                className="planner-sheet planner-sheet-mid"
-                style={{ y: pageSpreadSoft }}
-              />
-              <div className="planner-cover">
-                <div className="planner-clip" />
-                <span>Mon bureau</span>
-                <strong>Business Desk</strong>
-                <div className="planner-lines" aria-hidden="true">
+      <div className="story-viewport" ref={storyViewportRef}>
+        <div className="story-track" ref={storyTrackRef}>
+          {storyPanels.map((panel, index) => (
+            <article className="story-panel" key={panel.title}>
+              <div className={`story-image-frame story-image-${index + 1}`}>
+                <span>{panel.label}</span>
+                <div className="story-image-lines" aria-hidden="true">
+                  <i />
                   <i />
                   <i />
                   <i />
                 </div>
               </div>
-              <div className="planner-task planner-task-one">relances</div>
-              <div className="planner-task planner-task-two">dossiers</div>
-              <div className="planner-task planner-task-three">priorités</div>
-            </motion.div>
-          </div>
+              <div className="story-copy">
+                <span>{panel.kicker}</span>
+                <h3>{panel.title}</h3>
+                <p>{panel.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Qui suis-je ? ── */}
+    <div className="about-page">
+      <motion.section
+        className="about-section"
+        variants={revealContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.15 }}
+      >
+        <motion.div className="about-content" variants={revealItem}>
+          <p className="eyebrow">Qui suis-je ?</p>
+          <SplitHeading baseDelay={0.04}>Construire une activité qui me ressemble.</SplitHeading>
+        </motion.div>
+
+        <div className="about-grid">
+          <motion.div className="about-text" variants={revealContainer}>
+            <motion.p variants={revealItem}>
+              Depuis mes débuts comme hôtesse d'accueil, jusqu'à ma spécialisation en
+              secrétariat médical — j'ai accompagné des clients dans des secteurs très
+              différents. Cette diversité a été un déclic : j'ai compris que mes compétences
+              pouvaient s'adapter à n'importe quelle activité, et que c'était précisément là
+              ma valeur.
+            </motion.p>
+            <motion.p variants={revealItem}>
+              Aujourd'hui j'accompagne entrepreneurs, prestataires, libéraux et artisans
+              dans leur gestion administrative, leur organisation et leur relation client —
+              avec la même implication que si leur entreprise était la mienne.
+            </motion.p>
+            <motion.p variants={revealItem} className="about-conviction">
+              Une bonne collaboration ne se résume pas à gérer des tâches. C'est devenir
+              un soutien de confiance pour que chaque entrepreneur avance avec sérénité.
+            </motion.p>
+          </motion.div>
+
+          <motion.div className="about-mission" variants={revealItem}>
+            <p className="eyebrow">Ma mission</p>
+            <p>
+              Accompagner les entrepreneurs et indépendants dans leur quotidien en prenant
+              en charge leurs tâches administratives et leur support client, avec rigueur,
+              discrétion et engagement.
+            </p>
+            <div className="about-values">
+              {['Rigueur', 'Discrétion', 'Engagement', 'Adaptabilité'].map((v) => (
+                <span key={v} className="about-value">{v}</span>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </motion.section>
-    </motion.section>
+    </div>
 
     </>
   )

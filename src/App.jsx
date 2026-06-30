@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ContactPage from './pages/ContactPage'
 import PresentationPage from './pages/PresentationPage'
 import ResultsPage from './pages/ResultsPage'
@@ -58,9 +59,10 @@ function App() {
   const navigateTo = (pageId) => {
     const page = pages.find((p) => p.id === pageId)
     if (page) {
+      ScrollTrigger.killAll()
+      window.scrollTo(0, 0)
       navigate(page.path)
       setMenuOpen(false)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
