@@ -235,25 +235,18 @@ function PresentationPage({ navigate }) {
           {storyPanels.map((panel, index) => (
             <article className="story-panel" key={panel.title}>
               <div className={`story-image-frame story-image-${index + 1}`}>
+                <span className="story-image-label">{panel.label}</span>
                 {panel.img ? (
-                  <>
-                    <img
-                      src={panel.img}
-                      alt={panel.imgAlt}
-                      loading="lazy"
-                      className="story-image-photo"
-                    />
-                    <div className="story-image-label-wrap">
-                      <span className="story-image-label">{panel.label}</span>
-                    </div>
-                  </>
+                  <img
+                    src={panel.img}
+                    alt={panel.imgAlt}
+                    loading="lazy"
+                    className="story-image-photo"
+                  />
                 ) : (
-                  <>
-                    <span className="story-image-label">{panel.label}</span>
-                    <div className="story-image-lines" aria-hidden="true">
-                      <i /><i /><i /><i />
-                    </div>
-                  </>
+                  <div className="story-image-lines" aria-hidden="true">
+                    <i /><i /><i /><i />
+                  </div>
                 )}
               </div>
               <div className="story-copy">
