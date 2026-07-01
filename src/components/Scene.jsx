@@ -43,7 +43,7 @@ function Flower({ position, scale = 1, color = '#f4d7cf', centerColor = '#c69b55
         {Array.from({ length: petalCount }, (_, i) => (
           <mesh key={i} rotation={[0, 0, (i * Math.PI * 2) / petalCount]}>
             <shapeGeometry args={[petalShape, 8]} />
-            <meshStandardMaterial color={color} transparent opacity={0.68} {...mat.petal} />
+            <meshStandardMaterial color={color} transparent opacity={0.38} {...mat.petal} />
           </mesh>
         ))}
         <mesh position={[0, 0, 0.02]}>
@@ -61,11 +61,11 @@ function Feather({ position, scale = 1, color = '#d4b896', speed = 0.4, rotOffse
       <group position={position} scale={scale} rotation={[0.18, 0.1, rotOffset]}>
         <mesh>
           <shapeGeometry args={[featherShape, 12]} />
-          <meshStandardMaterial color={color} transparent opacity={0.6} {...mat.feather} />
+          <meshStandardMaterial color={color} transparent opacity={0.07} {...mat.feather} />
         </mesh>
         <mesh position={[0, 1.32, 0.02]}>
           <capsuleGeometry args={[0.009, 2.65, 4, 6]} />
-          <meshStandardMaterial color={color} transparent opacity={0.8} roughness={0.9} />
+          <meshStandardMaterial color={color} transparent opacity={0.18} roughness={0.9} />
         </mesh>
       </group>
     </Float>
@@ -107,19 +107,17 @@ export function Scene() {
         <ambientLight intensity={1.4} />
         <directionalLight position={[4, 6, 4]} intensity={0.5} color="#e6fbfa" />
 
-        {/* Fleurs */}
-        <Flower position={[3.8, 2.6, -4]}  scale={1.5} color="#b8e8e4" centerColor="#007F7F" rotOffset={0.3}  speed={0.45} />
-        <Flower position={[-4.2, 3.2, -6]} scale={1.1} color="#7ED9D6" centerColor="#005f5f" petalCount={6} rotOffset={1.1} speed={0.35} />
-        <Flower position={[4.6, -2.8, -3]} scale={0.9} color="#a8dedd" centerColor="#007F7F" rotOffset={2.2}  speed={0.58} />
-        <Flower position={[-2.2, -4, -5]}  scale={1.2} color="#c2ece9" centerColor="#00A8A8" petalCount={6} rotOffset={0.7} speed={0.42} />
-        <Flower position={[0.6, 5.2, -7]}  scale={1.3} color="#7ED9D6" centerColor="#007F7F" rotOffset={1.8}  speed={0.38} />
+        {/* Fleurs — grandes, bien espacées */}
+        <Flower position={[-5.8, 3.8, -5]}  scale={2.2} color="#b8e8e4" centerColor="#007F7F" rotOffset={0.3}  speed={0.38} />
+        <Flower position={[5.6, 3.2, -6]}   scale={2.0} color="#7ED9D6" centerColor="#005f5f" petalCount={6} rotOffset={1.1} speed={0.32} />
+        <Flower position={[5.2, -3.6, -4]}  scale={1.8} color="#a8dedd" centerColor="#007F7F" rotOffset={2.2}  speed={0.44} />
+        <Flower position={[-5.4, -3.2, -6]} scale={2.0} color="#c2ece9" centerColor="#00A8A8" petalCount={6} rotOffset={0.7} speed={0.36} />
 
-        {/* Plumes */}
-        <Feather position={[0.6, -0.4, -2]}  scale={3.8} color="#007F7F" rotOffset={0.12} speed={0.22} />
-        <Feather position={[-5.2, 1.8, -4]}  scale={1.1} color="#1A7F8C" rotOffset={-0.4} speed={0.36} />
-        <Feather position={[2.2, -1.8, -5]}  scale={1.0} color="#5FB3BD" rotOffset={0.6}  speed={0.44} />
-        <Feather position={[-1.8, 4.2, -6]}  scale={1.4} color="#00A8A8" rotOffset={-1.2} speed={0.32} />
-        <Feather position={[5.2, 0.2, -5]}   scale={0.85} color="#1A7F8C" rotOffset={1.4}  speed={0.5}  />
+        {/* Plumes — grandes, bien espacées */}
+        <Feather position={[-2.8, 1.2, -3]}  scale={4.2} color="#007F7F" rotOffset={0.12} speed={0.2} />
+        <Feather position={[3.8, 2.8, -5]}   scale={3.0} color="#1A7F8C" rotOffset={-0.5} speed={0.3} />
+        <Feather position={[-5.8, -1.4, -6]} scale={2.4} color="#5FB3BD" rotOffset={0.8}  speed={0.38} />
+        <Feather position={[5.4, -2.2, -5]}  scale={2.2} color="#00A8A8" rotOffset={-1.0} speed={0.34} />
 
         <Dust count={110} />
       </Canvas>

@@ -72,8 +72,8 @@ function ResultsPage({ navigate }) {
           Je rends les résultats visibles — pas juste les tâches faites.
         </SplitHeading>
         <motion.p className="proof-hero-sub" variants={revealItem}>
-          Chaque mission laisse une trace mesurable. Voici ce que ça donne
-          concrètement quand j&apos;interviens dans ton organisation.
+          Chaque mission laisse une <span className="key">trace mesurable</span>. Voici ce que ça donne
+          concrètement quand j&apos;interviens dans <span className="key">ton organisation</span>.
         </motion.p>
       </motion.div>
 

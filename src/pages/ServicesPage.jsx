@@ -6,32 +6,59 @@ const azSteps = [
   {
     num: '01',
     title: 'Premier contact',
-    text: "Formulaire du site, LinkedIn, mail ou Instagram — tu choisis le canal qui te convient.",
+    text: "Tu me contactes via le formulaire du site, LinkedIn, mail ou Instagram — tu choisis le canal qui te convient.",
   },
   {
     num: '02',
     title: 'Échange & découverte',
-    text: "Un appel ou une Visio pour comprendre ton fonctionnement, tes besoins et tes priorités. Pas de solution toute faite — je pars de ta réalité.",
+    text: "Un appel téléphonique ou une visio (Google Meet) pour comprendre ton fonctionnement, tes besoins et tes priorités. Pas de solution standardisée — je pars de ta réalité.",
   },
   {
     num: '03',
-    title: 'Proposition sur mesure',
-    text: "Je te propose un accompagnement adapté : SAV, planning, prise d'appels, gestion mails... Le contrat est défini ensemble selon tes besoins réels.",
+    title: 'Proposition personnalisée',
+    text: "Je te propose un accompagnement adapté à tes besoins : SAV, gestion de planning, prise d'appels, gestion de mails... Les modalités sont définies ensemble, dès le début.",
   },
   {
     num: '04',
     title: 'Début de collaboration',
-    text: "Je prends en charge les missions avec méthode et confidentialité. Je m'adapte à tes outils — si je dois me former, ce sera fait avec plaisir.",
+    text: "Je prends en charge les missions avec méthode et confidentialité. Je m'adapte à tes outils — si je dois me former, c'est fait avec plaisir et sans délai.",
   },
   {
     num: '05',
     title: 'Suivi régulier',
-    text: "Disponible à tout moment sur la plateforme qui te convient. Je suis les missions, j'ajuste en continu et reste réactive.",
+    text: "Disponible sur la plateforme qui te convient. Je suis les missions, j'ajuste en continu et reste réactive à chaque étape.",
   },
   {
     num: '06',
     title: 'Collaboration durable',
-    text: "Mon objectif : devenir un partenaire de confiance sur lequel tu peux compter au quotidien, sur le long terme.",
+    text: "Mon objectif : devenir le partenaire de confiance sur lequel tu peux compter au quotidien, sur le long terme. Cette activité, je la construis pour durer.",
+  },
+]
+
+const tools = [
+  {
+    name: 'ABM 2000',
+    img: '/tool-abm2000.jpg',
+    desc: "Permanence téléphonique et gestion de la relation client — traitement des appels, messages, agendas et consignes en temps réel.",
+    tag: 'Relation client',
+  },
+  {
+    name: 'Desmos Médecins',
+    img: '/tool-desmos.jpg',
+    desc: "Gestion de cabinet médical — dossiers patients, rendez-vous, prescriptions, facturation et télétransmission des feuilles de soin.",
+    tag: 'Médical',
+  },
+  {
+    name: 'Salesforce',
+    img: '/tool-salesforce.jpg',
+    desc: "CRM pour centraliser les informations clients, suivre les interactions et gérer les ventes, le service client et les activités commerciales.",
+    tag: 'CRM',
+  },
+  {
+    name: 'Doctolib',
+    img: '/tool-doctolib.jpg',
+    desc: "Gestion des rendez-vous et dossiers patients en ligne pour les professionnels de santé.",
+    tag: 'Médical',
   },
 ]
 
@@ -130,9 +157,9 @@ function ServicesPage({ navigate }) {
         <motion.p className="eyebrow" variants={revealItem}>Services</motion.p>
         <SplitHeading baseDelay={0.06}>Un seul process. Infiniment adaptable.</SplitHeading>
         <motion.p className="srv-hero-sub" variants={revealItem}>
-          Peu importe ton secteur ou tes outils — j'adapte ma méthode à ta réalité,
-          pas l'inverse. Le résultat est toujours le même : une organisation qui tourne
-          sans que tu aies à la porter.
+          Peu importe ton secteur ou tes outils — <span className="key">j'adapte ma méthode à ta réalité</span>,
+          pas l'inverse. Le résultat est toujours le même : <span className="key">une organisation qui tourne
+          sans que tu aies à la porter</span>.
         </motion.p>
       </motion.div>
 
@@ -189,6 +216,32 @@ function ServicesPage({ navigate }) {
         </div>
       </motion.div>
 
+      {/* ── Outils maîtrisés ── */}
+      <motion.div className="srv-tools" variants={revealContainer}>
+        <motion.div className="srv-tools-heading" variants={revealItem}>
+          <p className="eyebrow">Outils maîtrisés</p>
+          <h3>Je m&apos;adapte à tes logiciels — ou aux miens.</h3>
+          <p className="srv-tools-sub">
+            Voici quelques outils utilisés lors de mes missions (liste non exhaustive).
+            Si tu travailles avec un autre logiciel, je me forme rapidement et sans délai.
+          </p>
+        </motion.div>
+        <div className="srv-tools-grid">
+          {tools.map((tool) => (
+            <motion.div key={tool.name} className="srv-tool-card" variants={revealItem}>
+              <div className="srv-tool-logo-wrap">
+                <img src={tool.img} alt={tool.name} className="srv-tool-logo" loading="lazy" />
+              </div>
+              <div className="srv-tool-header">
+                <span className="srv-tool-name">{tool.name}</span>
+                <span className="srv-tool-tag">{tool.tag}</span>
+              </div>
+              <p className="srv-tool-desc">{tool.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* ── Étude de cas ── */}
       <motion.div className="srv-case-section" variants={revealContainer}>
         <motion.div className="srv-case-header" variants={revealItem}>
@@ -197,8 +250,8 @@ function ServicesPage({ navigate }) {
             <p className="eyebrow">Étude de cas · Mission relation client</p>
             <h3>Le même process, appliqué à une vraie équipe.</h3>
             <p className="srv-case-intro">
-              5 chantiers menés de front sur une mission réelle. À chaque fois : un outil
-              différent, un contexte différent — et le même résultat.
+              5 chantiers menés de front sur une mission réelle. À chaque fois : <span className="key">un outil
+              différent, un contexte différent</span> — et <span className="key">le même résultat</span>.
             </p>
           </div>
         </motion.div>

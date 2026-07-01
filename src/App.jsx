@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { LogoMonogram } from './components/LogoMonogram'
 import ContactPage from './pages/ContactPage'
 import PresentationPage from './pages/PresentationPage'
 import ResultsPage from './pages/ResultsPage'
@@ -153,7 +154,7 @@ function App() {
             onClick={() => navigateTo('presentation')}
             aria-label="Accueil Lea Jha"
           >
-            <img className="brand-logo" src="/logo-lea-jha.png" alt="" />
+            <LogoMonogram className="brand-logo" ariaHidden />
           </button>
 
           <button
@@ -210,7 +211,7 @@ function App() {
 
         <footer className="site-footer">
           <div className="footer-brand">
-            <img className="footer-logo" src="/logo-lea-jha.png" alt="Lea Jha" />
+            <LogoMonogram className="footer-logo" />
             <p>J&apos;accompagne les entrepreneurs qui veulent avancer avec une organisation claire et fiable.</p>
           </div>
 

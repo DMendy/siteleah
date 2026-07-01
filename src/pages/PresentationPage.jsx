@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, useReducedMotion } from 'motion/react'
 import { cardHover, heroTitle, revealContainer, revealItem } from '../animations'
 import { SplitHeading } from '../components/SplitHeading'
+import { LogoMonogram } from '../components/LogoMonogram'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,28 +16,36 @@ const journey = [
 
 const storyPanels = [
   {
-    kicker: 'Avant',
-    title: 'Je repère les infos dispersées.',
-    text: 'Je rassemble tes messages, factures, demandes clients, relances et priorités dans un centre clair.',
-    label: 'Inbox dispersée',
+    kicker: '01',
+    title: 'Derrière chaque entreprise bien organisée…',
+    text: "…il y a souvent une personne qui veille à ce que tout fonctionne. C'est ce rôle que j'ai choisi d'endosser.",
+    label: 'Le rôle',
+    img: '/lea-diplome.jpg',
+    imgAlt: 'Diplôme Secrétaire Médicale — Leah JHA',
   },
   {
-    kicker: 'Tri',
-    title: 'Je remets chaque sujet à sa place.',
-    text: "Je clarifie les urgences et je transforme le bruit opérationnel en liste d'actions lisible.",
-    label: 'Plan propre',
+    kicker: '02',
+    title: 'Une carrière construite sur le terrain.',
+    text: "J'ai commencé comme hôtesse d'accueil, pour ensuite me spécialiser comme secrétaire médicale. Au fil de mes expériences, j'ai eu l'occasion d'intervenir auprès de clients issus de secteurs très variés.",
+    label: 'Le parcours',
+    img: '/lea-portrait-travail.jpg',
+    imgAlt: 'Leah JHA au travail',
   },
   {
-    kicker: 'Suivi',
-    title: 'Je garde chaque dossier en mouvement.',
-    text: 'Je suis les relances, les documents et les prochaines étapes avec précision pour éviter les oublis.',
-    label: 'Dossiers suivis',
+    kicker: '03',
+    title: 'Un véritable déclic.',
+    text: "Cette diversité m'a fait réaliser que je pouvais mettre mes compétences au service d'entrepreneurs avec ma propre structure — en proposant un accompagnement professionnel, humain et personnalisé.",
+    label: 'Le déclic',
+    img: '/lea-travail-bureau.jpg',
+    imgAlt: 'Leah JHA au bureau',
   },
   {
-    kicker: 'Après',
-    title: 'Je te redonne de la hauteur.',
-    text: "Je transforme l'administratif en système fiable pour qu'il ne pilote plus ta journée.",
-    label: 'Vision claire',
+    kicker: '04',
+    title: 'Une collaboration qui va plus loin que les tâches.',
+    text: "Pour moi, une bonne collaboration ne se résume pas à gérer des tâches. C'est devenir un véritable soutien pour que chaque entrepreneur gagne du temps, avance avec sérénité et se consacre pleinement à son activité.",
+    label: 'La conviction',
+    img: '/lea-portrait-bureau.jpg',
+    imgAlt: 'Leah JHA',
   },
 ]
 
@@ -119,12 +128,12 @@ function PresentationPage({ navigate }) {
             Assistante business · administratif · organisation
           </motion.p>
           <motion.h1 className="hero-title hero-logo-title" variants={heroTitle}>
-            <img src="/logo-lea-jha.png" alt="Lea Jha" />
+            <LogoMonogram className="hero-logo-svg" />
           </motion.h1>
           <motion.p className="hero-copy" variants={revealItem}>
-            J&apos;accompagne les entrepreneurs et dirigeants dans leur gestion
-            administrative, leur organisation business et leur suivi opérationnel
-            avec précision, calme et méthode.
+            J&apos;accompagne les entrepreneurs et dirigeants dans leur <span className="key">gestion
+            administrative</span>, leur <span className="key">organisation business</span> et leur <span className="key">suivi opérationnel</span>
+            avec <span className="key">précision, calme et méthode</span>.
           </motion.p>
           <motion.div className="hero-actions" variants={revealItem}>
             <motion.button
@@ -183,12 +192,7 @@ function PresentationPage({ navigate }) {
             animate={{ opacity: 1, y: 0, rotate: -2 }}
             transition={{ delay: 0.72, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
-            <img
-              className="hero-sig-logo"
-              src="/logo-lea-jha.png"
-              alt=""
-              aria-hidden="true"
-            />
+            <LogoMonogram className="hero-sig-logo" ariaHidden />
             <div className="hero-sig-info">
               <strong>Leah JHA</strong>
               <span>Assistante Business</span>
@@ -231,13 +235,26 @@ function PresentationPage({ navigate }) {
           {storyPanels.map((panel, index) => (
             <article className="story-panel" key={panel.title}>
               <div className={`story-image-frame story-image-${index + 1}`}>
-                <span>{panel.label}</span>
-                <div className="story-image-lines" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                </div>
+                {panel.img ? (
+                  <>
+                    <img
+                      src={panel.img}
+                      alt={panel.imgAlt}
+                      loading="lazy"
+                      className="story-image-photo"
+                    />
+                    <div className="story-image-label-wrap">
+                      <span className="story-image-label">{panel.label}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <span className="story-image-label">{panel.label}</span>
+                    <div className="story-image-lines" aria-hidden="true">
+                      <i /><i /><i /><i />
+                    </div>
+                  </>
+                )}
               </div>
               <div className="story-copy">
                 <span>{panel.kicker}</span>
@@ -266,30 +283,36 @@ function PresentationPage({ navigate }) {
 
         <div className="about-grid">
           <motion.div className="about-text" variants={revealContainer}>
-            <motion.p variants={revealItem}>
-              Depuis mes débuts comme hôtesse d'accueil, jusqu'à ma spécialisation en
-              secrétariat médical — j'ai accompagné des clients dans des secteurs très
-              différents. Cette diversité a été un déclic : j'ai compris que mes compétences
-              pouvaient s'adapter à n'importe quelle activité, et que c'était précisément là
-              ma valeur.
+            <motion.p variants={revealItem} className="about-hook">
+              Derrière chaque entreprise bien organisée, il y a souvent
+              une personne qui veille à ce que tout fonctionne.
+              C&apos;est ce rôle que j&apos;ai choisi d&apos;endosser.
             </motion.p>
             <motion.p variants={revealItem}>
-              Aujourd'hui j'accompagne entrepreneurs, prestataires, libéraux et artisans
-              dans leur gestion administrative, leur organisation et leur relation client —
-              avec la même implication que si leur entreprise était la mienne.
+              J&apos;ai commencé ma carrière en tant qu&apos;<span className="key">hôtesse d&apos;accueil</span>,
+              pour ensuite me spécialiser comme <span className="key">secrétaire médicale</span>.
+              Au fil de mes expériences dans l&apos;assistanat, j&apos;ai eu l&apos;occasion
+              d&apos;intervenir auprès de clients issus de <span className="key">secteurs d&apos;activité très variés</span>.
+            </motion.p>
+            <motion.p variants={revealItem}>
+              Cette diversité a été un véritable déclic : j&apos;ai réalisé que je pouvais
+              mettre mes compétences au service d&apos;entrepreneurs avec <span className="key">ma propre structure</span>,
+              en proposant un accompagnement <span className="key">professionnel, humain et personnalisé</span>.
             </motion.p>
             <motion.p variants={revealItem} className="about-conviction">
-              Une bonne collaboration ne se résume pas à gérer des tâches. C'est devenir
-              un soutien de confiance pour que chaque entrepreneur avance avec sérénité.
+              Pour moi, une bonne collaboration ne se résume pas à gérer des tâches.
+              C&apos;est devenir un <span className="key">véritable soutien</span> pour que chaque entrepreneur
+              gagne du temps, avance avec <span className="key">sérénité</span> et se consacre pleinement
+              au développement de son activité.
             </motion.p>
           </motion.div>
 
           <motion.div className="about-mission" variants={revealItem}>
             <p className="eyebrow">Ma mission</p>
             <p>
-              Accompagner les entrepreneurs et indépendants dans leur quotidien en prenant
-              en charge leurs tâches administratives et leur support client, avec rigueur,
-              discrétion et engagement.
+              Accompagner les <span className="key">entrepreneurs, indépendants et petites entreprises</span> dans
+              leur quotidien — gestion administrative, support client, organisation — avec
+              <span className="key"> rigueur, discrétion et engagement</span>.
             </p>
             <div className="about-values">
               {['Rigueur', 'Discrétion', 'Engagement', 'Adaptabilité'].map((v) => (
